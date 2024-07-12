@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Products
+    Stocks
 @endsection
-
 
 @section('content')
     <div class="container-fluid">
@@ -14,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Products') }}
+                                {{ __('Stocks') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('messages.Create New') }}
+                                <a href="{{ route('stocks.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -37,30 +36,28 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Name</th>
-									<th >Purshaceprice</th>
-									<th >Sellingprice</th>
-									<th >State</th>
-									<th >Unit Per Pack Id</th>
+									<th >Quantity</th>
+									<th >Operation</th>
+									<th >Price</th>
+									<th >Product Id</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @foreach ($stocks as $stock)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $product->name }}</td>
-										<td >{{ $product->purshacePrice }}</td>
-										<td >{{ $product->sellingPrice }}</td>
-										<td >{{ $product->stateFormat() }}</td>
-										<td >{{ $product->unitPerPack->title }}</td>
+										<td >{{ $stock->quantity }}</td>
+										<td >{{ $stock->operation }}</td>
+										<td >{{ $stock->price }}</td>
+										<td >{{ $stock->product_id }}</td>
 
                                             <td>
-                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('products.show', $product->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('products.edit', $product->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('stocks.show', $stock->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('stocks.edit', $stock->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -73,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $products->withQueryString()->links() !!}
+                {!! $stocks->withQueryString()->links() !!}
             </div>
         </div>
     </div>

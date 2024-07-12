@@ -3,12 +3,12 @@
         
         <div class="form-group mb-2 mb20">
             <label for="title" class="form-label">{{ __('Title') }}</label>
-            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $unitPerPack?->title) }}" id="title" placeholder="Title">
+            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $unitPerPack?->title) }}" id="title" placeholder="Douzaine">
             {!! $errors->first('title', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
             <label for="number" class="form-label">{{ __('Number') }}</label>
-            <input type="text" name="number" class="form-control @error('number') is-invalid @enderror" value="{{ old('number', $unitPerPack?->number) }}" id="number" placeholder="Number">
+            <input type="text" name="number" class="form-control @error('number') is-invalid @enderror" value="{{ old('number', $unitPerPack?->number) }}" id="number" placeholder="12">
             {!! $errors->first('number', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 

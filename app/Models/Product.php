@@ -35,6 +35,13 @@ class Product extends Model
     protected $fillable = ['name', 'purshacePrice', 'sellingPrice', 'state', 'unit_per_pack_id'];
 
 
+
+    public function stateFormat()
+    {
+        return $this->state == 1? 'Active' : 'Inactive';
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

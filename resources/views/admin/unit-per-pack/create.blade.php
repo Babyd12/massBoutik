@@ -8,6 +8,7 @@
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
+                @alertSuccesOrDanger
 
                 <div class="card card-default">
                     <div class="card-header">
@@ -17,7 +18,7 @@
                         <form method="POST" action="{{ route('unit-per-packs.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('unit-per-pack.form')
+                            @include('admin.unit-per-pack.form')
 
                         </form>
                     </div>

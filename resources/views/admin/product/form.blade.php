@@ -16,15 +16,23 @@
             <input type="text" name="sellingPrice" class="form-control @error('sellingPrice') is-invalid @enderror" value="{{ old('sellingPrice', $product?->sellingPrice) }}" id="selling_price" placeholder="Sellingprice">
             {!! $errors->first('sellingPrice', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="state" class="form-label">{{ __('State') }}</label>
-            <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" value="{{ old('state', $product?->state) }}" id="state" placeholder="State">
+        <div class="btn-group " aria-label="Basic checkbox toggle button group">
+            <label for="state" class="btn btn-outline-primar">{{ __('Enable') }}
+                <input type="checkbox" name="state" class="form-check-input @error('state') is-invalid @enderror" value = {{ old('state', $product?->state) ? 'checked' : '1' }} id="state" >
+            </label>
+
             {!! $errors->first('state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+       
+
         <div class="form-group mb-2 mb20">
             <label for="unit_per_pack_id" class="form-label">{{ __('Unit Per Pack Id') }}</label>
-            <input type="text" name="unit_per_pack_id" class="form-control @error('unit_per_pack_id') is-invalid @enderror" value="{{ old('unit_per_pack_id', $product?->unit_per_pack_id) }}" id="unit_per_pack_id" placeholder="Unit Per Pack Id">
-            {!! $errors->first('unit_per_pack_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            <select  name="unit_per_pack_id" id="unit_per_pack_id" class="form-control @error('unit_per_pack_id') is-invalid @enderror" >
+              @foreach ($unitPerPack as $unit)
+                <option value="{{$unit->id}}" @selected(old('unit_per_pack_id', $unit->id == $product->unit_per_pack_id )) > {{$unit->title}} </option>
+              @endforeach
+              {!! $errors->first('unit_per_pack_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            </select>
         </div>
 
     </div>

@@ -49,7 +49,7 @@
                                     </a>
                                     <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                         <li class="w-100">
-                                            <a href="{{ route('products.index') }}" class="nav-link px-0"> 
+                                            <a href="{{ route('rays.index') }}" class="nav-link px-0"> 
                                                 <span class="d-none d-sm-inline"> {{ __('Voir Les Rayons') }} </span>
                                             </a>
                                         </li>
@@ -59,7 +59,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('unit_per_packs.index') }}" class="nav-link px-0"> 
+                                            <a href="{{ route('unit-per-packs.index') }}" class="nav-link px-0"> 
                                                 <span class="d-none d-sm-inline"> {{ __('Voir les Unités Par Paquet') }} </span>
                                             </a>
                                         </li>
