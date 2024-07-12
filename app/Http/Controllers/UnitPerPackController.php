@@ -18,7 +18,7 @@ class UnitPerPackController extends Controller
     {
         $unitPerPacks = UnitPerPack::paginate();
 
-        return view('unit-per-pack.index', compact('unitPerPacks'))
+        return view('admin.unit-per-pack.index', compact('unitPerPacks'))
             ->with('i', ($request->input('page', 1) - 1) * $unitPerPacks->perPage());
     }
 
@@ -29,7 +29,7 @@ class UnitPerPackController extends Controller
     {
         $unitPerPack = new UnitPerPack();
 
-        return view('unit-per-pack.create', compact('unitPerPack'));
+        return view('admin.unit-per-pack.create', compact('unitPerPack'));
     }
 
     /**
@@ -50,7 +50,7 @@ class UnitPerPackController extends Controller
     {
         $unitPerPack = UnitPerPack::find($id);
 
-        return view('unit-per-pack.show', compact('unitPerPack'));
+        return view('admin.unit-per-pack.show', compact('unitPerPack'));
     }
 
     /**
@@ -60,7 +60,7 @@ class UnitPerPackController extends Controller
     {
         $unitPerPack = UnitPerPack::find($id);
 
-        return view('unit-per-pack.edit', compact('unitPerPack'));
+        return view('admin.unit-per-pack.edit', compact('unitPerPack'));
     }
 
     /**

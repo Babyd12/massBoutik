@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Products
+    Rays
 @endsection
-
 
 @section('content')
     <div class="container-fluid">
@@ -14,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Products') }}
+                                {{ __('Rays') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('messages.Create New') }}
+                                <a href="{{ route('rays.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -38,29 +37,23 @@
                                         <th>No</th>
                                         
 									<th >Name</th>
-									<th >Purshaceprice</th>
-									<th >Sellingprice</th>
-									<th >State</th>
-									<th >Unit Per Pack Id</th>
+									<th >Position</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @foreach ($rays as $ray)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $product->name }}</td>
-										<td >{{ $product->purshacePrice }}</td>
-										<td >{{ $product->sellingPrice }}</td>
-										<td >{{ $product->state }}</td>
-										<td >{{ $product->unit_per_pack_id }}</td>
+										<td >{{ $ray->name }}</td>
+										<td >{{ $ray->position }}</td>
 
                                             <td>
-                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('products.show', $product->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('products.edit', $product->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('rays.destroy', $ray->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('rays.show', $ray->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('rays.edit', $ray->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -73,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $products->withQueryString()->links() !!}
+                {!! $rays->withQueryString()->links() !!}
             </div>
         </div>
     </div>

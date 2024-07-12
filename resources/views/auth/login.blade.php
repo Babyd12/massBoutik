@@ -2,6 +2,8 @@
 
 @section('title', 'Login')
 
+@section('sidebar') @endsection
+
 @section('content')
     <!-- Login 13 - Bootstrap Brain Component -->
     <section class="bg-light py-3 py-md-5">
