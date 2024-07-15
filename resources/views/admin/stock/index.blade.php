@@ -20,6 +20,9 @@
                                 <a href="{{ route('stocks.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
+                                <a href="{{ route('stocks.sell') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                    {{ __('Create Sell') }}
+                                </a>
                               </div>
                         </div>
                     </div>
@@ -52,7 +55,7 @@
 										<td >{{ $stock->quantity }}</td>
 										<td >{{ $stock->operation }}</td>
 										<td >{{ $stock->price }}</td>
-										<td >{{ $stock->product_id }}</td>
+										<td >{{ $stock->product->name }}</td>
 
                                             <td>
                                                 <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST">

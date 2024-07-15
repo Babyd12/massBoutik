@@ -49,7 +49,7 @@
                                     </a>
                                     <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                         <li class="w-100">
-                                            <a href="{{ route('rays.index') }}" class="nav-link px-0"> 
+                                            <a href="{{ route('products.index') }}" class="nav-link px-0"> 
                                                 <span class="d-none d-sm-inline"> {{ __('Voir Les Rayons') }} </span>
                                             </a>
                                         </li>
@@ -73,11 +73,12 @@
                                     </a>
                                     <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                         <li class="w-100">
-                                            <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Stock de produits')}} </span> </a>
+                                            <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Voir Stock De Produits')}} </span> </a>
                                         </li>
                                         <li class="w-100">
-                                            <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Achat de produits')}} </span> </a>
+                                            <a href="{{route('stocks.index')}}" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Achat de produits')}} </span> </a>
                                         </li>
+                                        
                                         <li>
                                             <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Vente de produits')}} </span> </a>
                                         </li>
@@ -163,6 +164,7 @@
 
     <!-- Bootstrap JS -->
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
     
     <!-- Custom JS -->
     <script>

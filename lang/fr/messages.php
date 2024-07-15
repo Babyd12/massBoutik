@@ -22,16 +22,16 @@ return [
     | Customization Language Lines
     |--------------------------------------------------------------------------
     |*/
-    'product' => 'produit',
-    'lougout' => 'Deconnexion',
+    'Product' => 'Produit',
+    'Lougout' => 'Deconnexion',
     'Create' => 'Créer',
     'Create New' => 'Ajouter',
     
     'Update' => 'Modifier',
     'Delete' => 'Supprimer',
-    'name' => 'Nom',
-    'description' => 'Description',
-    'price' => 'Prix',
+    'Name' => 'Nom',
+    'Description' => 'Description',
+    'Price' => 'Prix',
     'created_at' => 'Créé le',
     'updated_at' => 'Modifié le',
     'products' => 'Produits',

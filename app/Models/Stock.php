@@ -39,5 +39,12 @@ class Stock extends Model
     {
         return $this->belongsTo(\App\Models\Product::class, 'product_id', 'id');
     }
+
+    public static function getCurrentStockByProductId($product_id)
+    {
+        return self::where('product_id', $product_id)->sum('quantity');
+    }
+
+    
     
 }

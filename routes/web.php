@@ -19,15 +19,16 @@ Route::post('logout',[AuthController::class, 'logout'])->name('logout')->middlew
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');
+        return view('layouts.app');
     })->name('dashboard');
     
     Route::resource('rays', RayController::class);
     Route::resource('products', ProductController::class);
     Route::resource('unit-per-packs', UnitPerPackController::class);
     Route::resource('stocks', StockController::class);
-    
 
+   Route::get('stock/sell', [StockController::class, 'createSell'])->name('stocks.sell');
+    
 });
 
 

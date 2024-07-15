@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Product;
+use App\Enums\Operation;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\StockRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class StockController extends Controller
 {
@@ -18,7 +20,7 @@ class StockController extends Controller
     {
         $stocks = Stock::paginate();
 
-        return view('stock.index', compact('stocks'))
+        return view('admin.stock.index', compact('stocks'))
             ->with('i', ($request->input('page', 1) - 1) * $stocks->perPage());
     }
 
@@ -28,8 +30,20 @@ class StockController extends Controller
     public function create(): View
     {
         $stock = new Stock();
+        $enumOperations = Operation::cases();
+        $products = Product::all();
+   
+        
+        return view('admin.stock.create', [
+            'stock' => $stock,
+            'enumOperations' => $enumOperations,
+            'products' => $products,
+        ]);
+    }
 
-        return view('stock.create', compact('stock'));
+    public function createSell(): View
+    {
+       return $this->create();
     }
 
     /**
@@ -37,7 +51,22 @@ class StockController extends Controller
      */
     public function store(StockRequest $request): RedirectResponse
     {
-        Stock::create($request->validated());
+        //check if the product price wasen't change by user cause is readonly, mapped to product
+
+        $data = $request->validated();
+        $product = Product::findOrFail($data['product_id']);
+        // user can't clearance product in stock if the product in stock not exist or letter than out value
+        $currentStock = Stock::getCurrentStockByProductId($product->id);
+        // dd($currentStock);
+        if($data['quantity'] > $currentStock ){
+            return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+        }
+        // dd($product, $product->quantity, $data['quantity']);
+        if($data['operation'] == Operation::CLEARANCE->value){      
+            $data['price'] = -abs($data['price']);
+        }
+        
+        Stock::create($data);
 
         return Redirect::route('stocks.index')
             ->with('success', 'Stock created successfully.');
@@ -50,7 +79,8 @@ class StockController extends Controller
     {
         $stock = Stock::find($id);
 
-        return view('stock.show', compact('stock'));
+
+        return view('admin.stock.show', compact('stock'));
     }
 
     /**
@@ -59,8 +89,12 @@ class StockController extends Controller
     public function edit($id): View
     {
         $stock = Stock::find($id);
+        $products = Product::all();
+        $enumOperations = Operation::cases();
+        
 
-        return view('stock.edit', compact('stock'));
+
+        return view('admin.stock.edit', compact('stock', 'products', 'enumOperations'));
     }
 
     /**

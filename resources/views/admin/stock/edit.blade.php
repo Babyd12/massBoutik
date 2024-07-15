@@ -18,7 +18,7 @@
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('stock.form')
+                            @include('admin.stock.form')
 
                         </form>
                     </div>
