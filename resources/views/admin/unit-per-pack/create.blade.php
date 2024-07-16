@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} Unit Per Pack
+    {{ __('messages.Create') }} Unit Per Pack
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Unit Per Pack</span>
+                        <span class="card-title">{{ __('messages.Create') }} Unit Per Pack</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('unit-per-packs.store') }}"  role="form" enctype="multipart/form-data">

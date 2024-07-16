@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $ray->name ?? __('Show') . " " . __('Ray') }}
+    {{ $ray->name ?? __('messages.Show') . " " . __('messages.Ray') }}
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Ray</span>
+                            <span class="card-title">{{ __('messages.Show') }} Ray</span>
                         </div>
                         <div class="float-right">
                             <a class="btn btn-primary btn-sm" href="{{ route('rays.index') }}"> {{ __('Back') }}</a>
@@ -21,11 +21,11 @@
                     <div class="card-body bg-white">
                         
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Name:</strong>
+                                    <strong>{{__('messages.Name')}}:</strong>
                                     {{ $ray->name }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Position:</strong>
+                                    <strong>{{__('messages.Position')}}:</strong>
                                     {{ $ray->position }}
                                 </div>
 

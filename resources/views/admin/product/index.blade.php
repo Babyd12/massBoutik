@@ -14,7 +14,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Products') }}
+                                {{ __('messages.Products') }}
                             </span>
 
                              <div class="float-right">
@@ -37,11 +37,11 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Name</th>
-									<th >Purshaceprice</th>
-									<th >Sellingprice</th>
-									<th >State</th>
-									<th >Unit Per Pack Id</th>
+									<th >{{__('messages.Name')}}</th>
+									<th >{{__('messages.PurchasePrice')}}</th>
+									<th >{{__('messages.Sellingprice')}}</th>
+									<th >{{__('messages.State')}}</th>
+									<th >{{__('messages.Unit Per Pack')}}</th>
 
                                         <th></th>
                                     </tr>
@@ -59,11 +59,11 @@
 
                                             <td>
                                                 <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('products.show', $product->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('products.edit', $product->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('products.show', $product->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('messages.Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('products.edit', $product->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('messages.Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('messages.Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

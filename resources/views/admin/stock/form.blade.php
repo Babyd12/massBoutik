@@ -7,7 +7,7 @@
         </a>
 
         <div class="form-group mb-2 mb20">
-            <label for="product-select"> {{ __('Choose') }} {{ __('Product') }} </label>
+            <label for="product-select"> {{ __('messages.Choose') ." ". __('messages.A_male') ." ". __('messages.Product') }}  </label>
             <div id="product-select" class="custom-select">
                 <input type="text" id="product-search" class="form-control @error('product_id') is-invalid @enderror"
                     placeholder="Sélectionnez un produit" readonly>
@@ -16,7 +16,7 @@
                 <div id="dropdown" class="dropdown-content">
                     <input type="text" id="product-filter" class="form-control" placeholder="Rechercher un produit">
                     <select id="product-list" size="10" class="form-control">
-                        <option value="">Sélectionnez un produit</option>
+                        <option value=""> {{__('messages.Select a product')}} </option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}" data-price="{{ $product->purshacePrice }}" data-sellingprice="{{ $product->sellingPrice }}"
                                 @selected(old('product_id', $stock->product_id) == $product->id)>

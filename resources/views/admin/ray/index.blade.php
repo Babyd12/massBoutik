@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Rays
+    {{__('meesages.Rays')}}
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Rays') }}
+                                {{ __('meesages.Rays') }}
                             </span>
 
                              <div class="float-right">
                                 <a href="{{ route('rays.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                                  {{ __('messages.Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -36,8 +36,8 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Name</th>
-									<th >Position</th>
+									<th >{{__('messages.Name')}}</th>
+									<th >{{__('messages.Position')}}</th>
 
                                         <th></th>
                                     </tr>
@@ -52,11 +52,11 @@
 
                                             <td>
                                                 <form action="{{ route('rays.destroy', $ray->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('rays.show', $ray->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('rays.edit', $ray->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('rays.show', $ray->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('messages.Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('rays.edit', $ray->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('messages.Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('messages.Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

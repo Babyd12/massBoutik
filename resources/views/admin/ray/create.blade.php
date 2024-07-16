@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} Ray
+    {{ __('messages.Create') }} Ray
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Ray</span>
+                        <span class="card-title">{{ __('messages.Create') }} Ray</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('rays.store') }}"  role="form" enctype="multipart/form-data">

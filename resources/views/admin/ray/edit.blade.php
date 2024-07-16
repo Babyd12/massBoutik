@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Update') }} Ray
+    {{ __('messages.Update') }} Ray
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Ray</span>
+                        <span class="card-title">{{ __('messages.Update') }} Ray</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('rays.update', $ray->id) }}"  role="form" enctype="multipart/form-data">

@@ -16,6 +16,9 @@
 
     {{-- remote icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     
 </head>
 
@@ -35,7 +38,7 @@
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                                 <li class="nav-item">
                                     
-                                    <a href="#" class="nav-link align-middle px-0">
+                                    <a href=" {{route('dashboard')}} " class="nav-link align-middle px-0">
                                         <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                                     </a>
                                 </li>
@@ -49,7 +52,7 @@
                                     </a>
                                     <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                                         <li class="w-100">
-                                            <a href="{{ route('products.index') }}" class="nav-link px-0"> 
+                                            <a href="{{ route('rays.index') }}" class="nav-link px-0"> 
                                                 <span class="d-none d-sm-inline"> {{ __('Voir Les Rayons') }} </span>
                                             </a>
                                         </li>
@@ -73,41 +76,24 @@
                                     </a>
                                     <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                         <li class="w-100">
-                                            <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Voir Stock De Produits')}} </span> </a>
+                                            <a href="{{route('stocks.index')}}" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Voir Stock De Produits')}} </span> </a>
                                         </li>
-                                        <li class="w-100">
+                                        {{-- <li class="w-100">
                                             <a href="{{route('stocks.index')}}" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Achat de produits')}} </span> </a>
                                         </li>
                                         
                                         <li>
                                             <a href="" class="nav-link px-0"> <span class="d-none d-sm-inline"> {{__('Vente de produits')}} </span> </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
                                 
-                                <li>
+                                {{-- <li>
                                     <a href="#" class="nav-link px-0 align-middle">
                                         <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
-                                </li>
+                                </li> --}}
                           
-                                <li>
-                                    <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                                        <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
-                                        <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                                        <li class="w-100">
-                                            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                             
                                 <li>
                                     <a href="#" class="nav-link px-0 align-middle">
                                         <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>

@@ -12,7 +12,7 @@ class AdminHomeController extends Controller
         $sales = $recentSales = Stock::getStockByOperation('clearance');
         $salesCount = $sales->count();
         $salesSum = $sales->sum('price');
-        $period = 'day';
+        $period = 'Daily';
         return view('admin.home', compact('sales', 'salesCount', 'salesSum', 'period') );
     }
 

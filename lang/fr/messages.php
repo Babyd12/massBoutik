@@ -23,32 +23,67 @@ return [
     |--------------------------------------------------------------------------
     |*/
     'Product' => 'Produit',
+    'Products' => 'Produits',
     'Lougout' => 'Deconnexion',
-    'Create' => 'Créer',
-    'Create New' => 'Ajouter',
-    'Update' => 'Modifier',
-    'Delete' => 'Supprimer',
+   
     'Name' => 'Nom',
     'Day' => 'Jour',
     'Month' => 'Mois',
     'Year' => 'Année',
     'Apply' => 'Appliquer',
+    'Select' => 'Sélectionnez',
+
+    'A_female' => 'Une',
+    'A_male' => 'Un',
+    'The_female' => 'La',
+    'The_male' => 'Le',
+
+
     'Period' => 'Période', 
     'Dashboard' => 'Tableau de board',
+    'Number' => 'Nombre',
+    'Amount' => 'Montant',
+    'Off' => 'De',
     'Total' => 'Totale',
     'Sell' => 'Vente',
+    'Sells' => 'Ventes',
     'Price' => 'Prix',
-    'Monthly sales amount' => 'Montant des ventes mensuelles',
-    'Monthly' => 'Mensuelle',
-    'Daily sales amount' => 'Montant des ventes quotidiennes',
+
+    'Sales Amount' => 'Montant de vente',
+    'Number of sales' => 'Nombre de vente',
     'Daily' => 'Quotidienne',
+    'Monthly' => 'Mensuelle',
+    'Weekly' => 'Hebdomadaire',
+    'Yearly' => 'Annuelle',
+
+    'PurchasePrice' => 'Prix d\'achat ',
+    'Sellingprice' => 'Prix de vente',
+    'State' => 'Etat',
+    'Unit Per Pack' => 'Unité par paqeut',
+    'Unit Per Packs' => 'Unité par paqeuts',
+    'Unit Per Pack Id' => 'Unité par paqeut',
+    'Position' => 'Position',
+    'Rays' => 'Rayons',
+    'Ray' => 'Rayon',
+    'Title' => 'Titre',
+  
     
-    'Description' => 'Description',
+    // Crud word
+    'Create' => 'Créer',
+    'Update' => 'Modifier',
+    'Delete' => 'Supprimer',
+    'Create New' => 'Ajouter',
     'created_at' => 'Créé le',
     'updated_at' => 'Modifié le',
-    'products' => 'Produits',
-    'edit' => 'Editer',
-    'back' => 'Retour',
+    'Edit' => 'Editer',
+    'Back' => 'Retour',
+    'Show' => 'Voir',
+
+    //stock
+    'Choose' => 'Choisir',
+    'Choose Product' => 'Choisir un produit',
+    'Select'
+
     
     
 ];      
