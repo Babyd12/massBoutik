@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Stock extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -45,6 +45,16 @@ class Stock extends Model
         return self::where('product_id', $product_id)->sum('quantity');
     }
 
-    
-    
+    public static function getStockByOperation($operation, $day = null)
+    {
+        if (empty($day)) {
+            return self::where('operation', $operation)
+                ->where('create_at', '>=', now())
+                ->get();
+        } else {
+            return self::where('operation', $operation)
+            ->where('create_at', '>=', now()->subDays(7))
+            ->get();
+        }
+    }
 }

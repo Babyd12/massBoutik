@@ -49,27 +49,34 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StockRequest $request): RedirectResponse
     {
         //check if the product price wasen't change by user cause is readonly, mapped to product
 
         $data = $request->validated();
         $product = Product::findOrFail($data['product_id']);
-        // user can't clearance product in stock if the product in stock not exist or letter than out value
+        // user can't clearance a product in the stock if the product in stock not exist or letter than out value
         $currentStock = Stock::getCurrentStockByProductId($product->id);
-        // dd($currentStock);
+      
         if($data['quantity'] > $currentStock ){
             return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
         }
-        // dd($product, $product->quantity, $data['quantity']);
+        
         if($data['operation'] == Operation::CLEARANCE->value){      
-            $data['price'] = -abs($data['price']);
+            $data['quantity'] = -abs($data['quantity']);
         }
+        
+       
         
         Stock::create($data);
 
         return Redirect::route('stocks.index')
             ->with('success', 'Stock created successfully.');
+    }
+
+    public function convertNumberToNegatif($number){
+        return -abs($number);
     }
 
     /**
@@ -102,7 +109,20 @@ class StockController extends Controller
      */
     public function update(StockRequest $request, Stock $stock): RedirectResponse
     {
-        $stock->update($request->validated());
+        $data = $request->validated();   
+        if(!empty($data['new_price'])){
+            $data['price'] = $data['new_price'];
+        }
+        if($data['operation'] == Operation::CLEARANCE->value){      
+            $data['price'] = -abs($data['price']);
+        }
+
+        $currentStock = Stock::getCurrentStockByProductId($data['product_id']);
+        if($data['quantity'] > $currentStock ){
+            return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+        }
+  
+        $stock->update($data);
 
         return Redirect::route('stocks.index')
             ->with('success', 'Stock updated successfully');

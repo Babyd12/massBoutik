@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminHomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RayController;
 use App\Http\Controllers\StockController;
@@ -18,10 +19,9 @@ Route::post('login',[AuthController::class, 'authUser'])->name('auth_user')->mid
 Route::post('logout',[AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('layouts.app');
-    })->name('dashboard');
-    
+    Route::get('/dashabord', [AdminHomeController::class, 'index'])->name('dashboard');
+    Route::get('dashboard/period/{period}', [AdminHomeController::class, 'recentSalesPerPeriod'])->name('dashboard.period');
+
     Route::resource('rays', RayController::class);
     Route::resource('products', ProductController::class);
     Route::resource('unit-per-packs', UnitPerPackController::class);

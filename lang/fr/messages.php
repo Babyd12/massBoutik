@@ -26,10 +26,13 @@ return [
     'Lougout' => 'Deconnexion',
     'Create' => 'Créer',
     'Create New' => 'Ajouter',
-    
     'Update' => 'Modifier',
     'Delete' => 'Supprimer',
     'Name' => 'Nom',
+    'Day' => 'Jour',
+    'Month' => 'Mois',
+    'Year' => 'Année',
+  
     'Description' => 'Description',
     'Price' => 'Prix',
     'created_at' => 'Créé le',

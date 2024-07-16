@@ -67,8 +67,14 @@ class ProductController extends Controller
     public function edit($id): View
     {
         $product = Product::find($id);
+        $unitPerPack = UnitPerPack::all();
+        
+        if($unitPerPack->isEmpty()){
+            return Redirect::route('unit-per-packs.create')
+                ->with('warning', 'The purchase unit is empty, Please add one before add product.');
+        }
 
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.edit', compact('product', 'unitPerPack'));
     }
 
     /**
