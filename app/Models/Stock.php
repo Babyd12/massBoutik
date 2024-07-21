@@ -49,12 +49,25 @@ class Stock extends Model
     {
         if (empty($day)) {
             return self::where('operation', $operation)
-                ->where('create_at', '>=', now())
+                ->where('created_at', '>=', now())
                 ->get();
         } else {
             return self::where('operation', $operation)
-            ->where('create_at', '>=', now()->subDays(7))
-            ->get();
+                ->where('created_at', '>=', now()->subDays(7))
+                ->get();
+        }
+    }
+
+    public function getStocks($operation)
+    {
+        if (empty($day)) {
+            return self::where('operation', $operation)
+                ->where('created_at', '>=', now())
+                ->get();
+        } else {
+            return self::where('operation', $operation)
+                ->where('created_at', '>=', now()->subDays(7))
+                ->get();
         }
     }
 }

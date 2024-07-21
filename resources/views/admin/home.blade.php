@@ -244,13 +244,14 @@
             <div class="row padding-1 p-1">
                 <div class="col-md-12">
                     <div class="form-group mb-2 mb20">
-                  
+
                         <select name="period" id="period" class="form-control">
-                            <option value=""> {{ __('messages.Select') }} {{ __('messages.A_female') }} {{ __('messages.Period') }} </option>
-                            <option value="Daily">{{__("messages.Daily")}}</option>
-                            <option value="Weekly">{{__("messages.Weekly")}}</option>
-                            <option value="Monthly">{{__("messages.Monthly")}}</option>
-                            <option value="Yearly">{{__("messages.Yearly")}}</option>
+                            <option value=""> {{ __('messages.Select') }} {{ __('messages.A_female') }}
+                                {{ __('messages.Period') }} </option>
+                            <option value="Daily">{{ __('messages.Daily') }}</option>
+                            <option value="Weekly">{{ __('messages.Weekly') }}</option>
+                            <option value="Monthly">{{ __('messages.Monthly') }}</option>
+                            <option value="Yearly">{{ __('messages.Yearly') }}</option>
                         </select>
                         {!! $errors->first('period', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
@@ -270,91 +271,81 @@
             </div>
 
             <div class="row">
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card overflow-hidden">
-                            <div class="card-content">
-                                <div class="card-body clearfix">
-                                    <div class="d-flex align-items-end">
-                                        <div class="flex-grow-1">
-                                            <h4>{{ __('messages.Number of sales') }} {{ __('messages.'.ucfirst($period)) }}</h4>
-                                        </div>
-                                        <div class="align-self-end me-3">
-                                            <i class="bi bi-cash-stack text-primary fs-1"></i>
-                                        </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="card overflow-hidden">
+                        <div class="card-content">
+                            <div class="card-body clearfix">
+                                <div class="d-flex align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h4>{{ __('messages.Number of sales') }} {{ __('messages.' . ucfirst($period)) }}
+                                        </h4>
                                     </div>
-                                    <div class="mt-2 text-end" style="margin-right:5%">
-                                        <h1 class="ml-12">{{ $salesCount }}</h1>
+                                    <div class="align-self-end me-3">
+                                        <i class="bi bi-bar-chart text-primary fs-1"></i>
+                                        {{-- <i class="bi bi-cash-stack text-primary fs-1"></i> --}}
                                     </div>
+                                </div>
+                                <div class="mt-2 text-end" style="margin-right:5%">
+                                    <h1 class="ml-12">{{ $salesCount }}</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-12">
-                        <div class="card overflow-hidden">
-                            <div class="card-content">
-                                <div class="card-body clearfix">
-                                    <div class="d-flex align-items-end">
-                                        <div class="flex-grow-1">
-                                            <h4>{{ __('messages.Sales Amount') }} {{ __('messages.'.ucfirst($period)) }}</h4>
-                                        </div>
-                                        <div class="align-self-end me-3">
-                                            <i class="bi bi-cash-stack text-primary fs-1"></i>
-                                        </div>
+                </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="card overflow-hidden">
+                        <div class="card-content">
+                            <div class="card-body clearfix">
+                                <div class="d-flex align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h4>{{ __('messages.Sales Amount') }} {{ __('messages.' . ucfirst($period)) }}</h4>
                                     </div>
-                                    <div class="text-end mt-2 mr-9">
-                                        <h1>{{ $salesSum }} {{ App\Enums\CodeDevise::FCFA }}</h1>
+                                    <div class="align-self-end me-3">
+                                        <i class="bi bi-cash-stack text-primary fs-1"></i>
                                     </div>
+                                </div>
+                                <div class="text-end mt-2 mr-9">
+                                    <h1>{{ $salesSum }} {{ App\Enums\CodeDevise::FCFA }}</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
-                
+                </div>
+            </div>
+        </section>
+        <section id="stats-feature">
+            <div class="row">
+                <div class="col-12 mt-3 mb-1">
+                    <h4 class="text-uppercase"> {{ __('messages.Finance') }} </h4>
+                    <p> {{ __('messages.Forecast') }} </p>
+                </div>
             </div>
 
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col-xl-6 col-md-12">
-                    <div class="card">
+                    <div class="card overflow-hidden">
                         <div class="card-content">
-                            <div class="card-body cleartfix">
-                                <div class="media align-items-stretch">
-                                    <div class="align-self-center">
-                                        <h1 class="mr-2">$76,456.00</h1>
+                            <div class="card-body clearfix">
+                                <div class="d-flex align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h4>{{ __('messages.Total Profit Expected for All Products') }}
+                                        </h4>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>Total Sales</h4>
-                                        <span>Monthly Sales Amount</span>
+                                    <div class="align-self-end me-3">
+                                        {{-- <i class="bi bi-bar-chart text-primary fs-1"></i> --}}
+                                        <i class="bi bi-building-fill-check fs-1"></i>
+                                      
                                     </div>
-                                    <div class="align-self-center">
-                                        <i class="icon-heart danger font-large-2"></i>
-                                    </div>
+                                </div>
+                                <div class="mt-2 text-end" style="margin-right:5%">                                                       
+                                    <h1 class="ml-12">{{ $totalProfit }} {{ App\Enums\CodeDevise::FCFA }} </h1>               
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-xl-6 col-md-12">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-body cleartfix">
-                                <div class="media align-items-stretch">
-                                    <div class="align-self-center">
-                                        <h1 class="mr-2">$36,000.00</h1>
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Total Cost</h4>
-                                        <span>Monthly Cost</span>
-                                    </div>
-                                    <div class="align-self-center">
-                                        <i class="bi bi-wallet"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+              
+            </div>
         </section>
     </div>
 @endsection

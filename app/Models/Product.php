@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CodeDevise;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,8 +36,29 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = ['name', 'purchace_price', 'selling_price', 'state', 'unit_per_pack_id'];
+    
 
+    public  function getTotalProfitPerProduct()
+    {
+        //selling_price = profitPerUnit, so dont need to do $this->selling_price - $this->purchase_price;
+        $unitPerPack = $this->unitPerPack->number;
+        $profit = $this->selling_price  * $unitPerPack;
+        return $profit;
+    }   
 
+    public static function getTotalProfit($products)
+    {
+        $totalProfit = 0;
+        foreach ($products as $product) {
+            $totalProfit += $product->getTotalProfitPerProduct();
+        }
+        return number_format($totalProfit, 0, ',', ' ');
+    }
+
+    public function money_format()
+    {
+        return number_format($this->selling_price, 2, '.', ',');
+    }
 
     public function stateFormat()
     {

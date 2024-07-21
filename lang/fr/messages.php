@@ -123,6 +123,11 @@ return [
     'Show Borrowers' => 'Voir les emprunteurs',
     'Borrowers' => 'Emprunteurs',
 
+    //home 
+    'Expected profit' => 'Bénéfice attendu',
+    'Finance' => 'Finance',
+    'Forecast' => 'Prévision',
+    'Total Profit Expected for All Products' => 'Bénéfice total attendu pour tous les produits',
 
 
     // error message 
