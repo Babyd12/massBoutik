@@ -52,23 +52,22 @@ class StockController extends Controller
 
     public function store(StockRequest $request): RedirectResponse
     {
+        
         //check if the product price wasen't change by user cause is readonly, mapped to product
 
         $data = $request->validated();
+        // dd($data);
         $product = Product::findOrFail($data['product_id']);
         // user can't clearance a product in the stock if the product in stock not exist or letter than out value
-        $currentStock = Stock::getCurrentStockByProductId($product->id);
-      
-        if($data['quantity'] > $currentStock ){
-            return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
-        }
-        
-        if($data['operation'] == Operation::CLEARANCE->value){      
+       
+        if($data['operation'] == Operation::CLEARANCE->value){   
+
+            $currentStock = Stock::getCurrentStockByProductId($product->id);
+            if($data['quantity'] > $currentStock ){
+                return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+            }   
             $data['quantity'] = -abs($data['quantity']);
         }
-        
-       
-        
         Stock::create($data);
 
         return Redirect::route('stocks.index')

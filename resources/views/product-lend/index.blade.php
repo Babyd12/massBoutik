@@ -1,9 +1,8 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Products
+    Product Lends
 @endsection
-
 
 @section('content')
     <div class="container-fluid">
@@ -14,12 +13,12 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('messages.Products') }}
+                                {{ __('Product Lends') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('messages.Create New') }}
+                                <a href="{{ route('product-lends.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                  {{ __('Create New') }}
                                 </a>
                               </div>
                         </div>
@@ -37,33 +36,29 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >{{__('messages.Name')}}</th>
-									<th >{{__('messages.PurchasePrice')}}</th>
-									<th >{{__('messages.Sellingprice')}}</th>
-									<th >{{__('messages.State')}}</th>
-									<th >{{__('messages.Unit Per Pack')}}</th>
+									<th >Product Id</th>
+									<th >Lend Id</th>
+									<th >User Id</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @foreach ($productLends as $productLend)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $product->name }}</td>
-										<td >{{ $product->purchace_price }}</td>
-										<td >{{ $product->selling_price }}</td>
-										<td >{{ $product->stateFormat() }}</td>
-										<td >{{ $product->unitPerPack->title }}</td>
+										<td >{{ $productLend->product_id }}</td>
+										<td >{{ $productLend->lend_id }}</td>
+										<td >{{ $productLend->user_id }}</td>
 
                                             <td>
-                                                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('products.show', $product->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('messages.Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('products.edit', $product->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('messages.Edit') }}</a>
+                                                <form action="{{ route('product-lends.destroy', $productLend->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('product-lends.show', $productLend->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('product-lends.edit', $productLend->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('messages.Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -73,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $products->withQueryString()->links() !!}
+                {!! $productLends->withQueryString()->links() !!}
             </div>
         </div>
     </div>

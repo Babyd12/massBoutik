@@ -34,7 +34,7 @@ class AuthController extends Controller
     {
         if (auth()->attempt($request->validated())) {
             // User authenticated successfully, redirect to dashboard
-            return redirect()->intended('dashboard');
+            return redirect()->intended('admin/dashboard');
         } else {
             // Authentication failed, redirect back with error message
             return back()->with('error', trans('auth.failed'));

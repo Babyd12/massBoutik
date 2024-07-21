@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('messages.Create') }} Stock
+    {{ __('messages.Update') }} User
 @endsection
 
 @section('content')
     <section class="content container-fluid">
-        <div class="row">
+        <div class="">
             <div class="col-md-12">
-                @alertSuccesOrDanger()
+
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('messages.Create') }} Stock</span>
+                        <span class="card-title">{{ __('messages.Update') }} User</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('stocks.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('users.update', $user->id) }}"  role="form" enctype="multipart/form-data">
+                            {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('admin.stock.form')
-                            
+                            @include('admin.user.form')
+
                         </form>
                     </div>
                 </div>

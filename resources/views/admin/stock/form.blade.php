@@ -3,16 +3,14 @@
         {{-- return back --}}
         <a href="{{ route('stocks.index') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
             <i class="bi bi-arrow-90deg-left"></i>
-            {{ __('Back') }}
+            {{ __('messages.Back') }}
         </a>
 
         <div class="form-group mb-2 mb20">
-            <label for="product-select"> {{ __('messages.Choose') ." ". __('messages.A_male') ." ". __('messages.Product') }}  </label>
+            <label for="product-select"> {{ __('messages.Choose a Product') }}  </label>
             <div id="product-select" class="custom-select">
-                <input type="text" id="product-search" class="form-control @error('product_id') is-invalid @enderror"
-                    placeholder="Sélectionnez un produit" readonly>
-                <input type="hidden" id="product-id" name="product_id"
-                    value="{{ old('product_id', $stock->product_id) }}">
+                <input type="text" id="product-search" class="form-control @error('product_id') is-invalid @enderror" placeholder="Sélectionnez un produit" readonly>
+                <input type="hidden" id="product-id" name="product_id" value="{{ old('product_id', $stock->product_id) }}">
                 <div id="dropdown" class="dropdown-content">
                     <input type="text" id="product-filter" class="form-control" placeholder="Rechercher un produit">
                     <select id="product-list" size="10" class="form-control">
@@ -32,7 +30,7 @@
         @if (Route::currentRouteName() === 'stocks.create' || Route::currentRouteName() === 'stocks.edit' )
             <div class="form-group mb-2 mb20 row">
                 <div class="col">
-                    <label for="price" class="form-label">{{ __('Buy Price') }}</label>
+                    <label for="price" class="form-label">{{ __('messages.Buy Price') }}</label>
                     <input type="text" name="price" id="product-price"
                         class="form-control @error('price') is-invalid @enderror"
                         value="{{ old('price', $stock?->price) }}" id="price" placeholder="Price" readonly>
@@ -40,7 +38,7 @@
                 </div>
 
                 <div id="new_price" class="col">
-                    <label for="new_price" class="form-label">{{ __('New Price') }}</label>
+                    <label for="new_price" class="form-label">{{ __('messages.New Price') }}</label>
                     <input type="number" name="new_price" class="form-control" id="">
                     {!! $errors->first('new_price', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
 
@@ -51,7 +49,7 @@
             
             <div class="form-group mb-2 mb20 row">
                 <div class="col">
-                    <label for="price" class="form-label">{{ __('Sell Price') }}</label>
+                    <label for="price" class="form-label">{{ __('messages.Sell Price') }}</label>
                     <input type="text" name="sellPrice" id="product-selling-price"
                         class="form-control @error('sellPrice') is-invalid @enderror"
                         value="{{ old('sellPrice', $stock?->price) }}"  placeholder="Sell Price" readonly>
@@ -59,15 +57,12 @@
                 </div>
                 
             </div>
-
-
-
         @endif
 
         @if (Route::currentRouteName() === 'stocks.sell')
             <div class="form-group mb-2 mb20 row">
                 <div class="col">
-                    <label for="price" class="form-label">{{ __('Sell Price') }}</label>
+                    <label for="price" class="form-label">{{ __('messages.Sell Price') }}</label>
                     <input type="text" name="price" id="product-price"
                         class="form-control @error('price') is-invalid @enderror"
                         value="{{ old('price', $stock?->price) }}" id="price" placeholder="Price" readonly>
@@ -79,17 +74,18 @@
 
 
         <div class="form-group mb-2 mb20">
-            <label for="quantity" class="form-label">{{ __('Quantity') }}</label>
+            <label for="quantity" class="form-label">{{ __('messages.Quantity') }}</label>
             <input type="number" name="quantity" class="form-control @error('quantity') is-invalid @enderror"
                 value="{{ old('quantity', $stock?->quantity) }}" id="quantity" placeholder="Quantity">  
             {!! $errors->first('quantity', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="operation" class="form-label">{{ __('Operation') }}</label>
+            <label for="operation" class="form-label">{{ __('messages.Operation') }}</label>
             <select name="operation" id="operation" class="form-control @error('operation') is-invalid @enderror">
                 @foreach ($enumOperations as $operation)
-                    <option value="{{ $operation }}" @selected(old('operation', $stock->operation) == $operation)>{{ __($operation->value) }}
+                    <option value="{{ $operation }}" @selected(old('operation', $stock->operation) == $operation)>
+                        {{ __('messages.'.$operation->value) }} 
                     </option>
                 @endforeach
             </select>
@@ -97,7 +93,7 @@
         </div>
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('messages.Submit') }}</button>
     </div>
 </div>
 

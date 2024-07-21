@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class Product
  *
  * @property $id
  * @property $name
- * @property $purshacePrice
- * @property $sellingPrice
+ * @property $purchace_price
+ * @property $selling_price
  * @property $state
  * @property $unit_per_pack_id
  * @property $created_at
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Product extends Model
 {
+    use HasFactory;
     
     protected $perPage = 20;
 
@@ -32,7 +34,7 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'purshacePrice', 'sellingPrice', 'state', 'unit_per_pack_id'];
+    protected $fillable = ['name', 'purchace_price', 'selling_price', 'state', 'unit_per_pack_id'];
 
 
 
@@ -55,7 +57,7 @@ class Product extends Model
      */
     public function productLends()
     {
-        return $this->hasMany(\App\Models\ProductLend::class, 'id', 'product_id');
+        return $this->hasMany(\App\Models\ProductLend::class,  'product_id', 'id',);
     }
     
     /**
@@ -63,7 +65,7 @@ class Product extends Model
      */
     public function stocks()
     {
-        return $this->hasMany(\App\Models\Stock::class, 'id', 'product_id');
+        return $this->hasMany(\App\Models\Stock::class,  'product_id', 'id',);
     }
     
 }

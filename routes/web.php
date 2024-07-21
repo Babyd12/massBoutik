@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdminHomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RayController;
+use App\Http\Controllers\LendController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UnitPerPackController;
 
@@ -25,10 +27,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::resource('rays', RayController::class);
     Route::resource('products', ProductController::class);
     Route::resource('unit-per-packs', UnitPerPackController::class);
-    Route::resource('stocks', StockController::class);
-
-   Route::get('stock/sell', [StockController::class, 'createSell'])->name('stocks.sell');
     
+    Route::resource('stocks', StockController::class);
+    Route::get('stock/sell', [StockController::class, 'createSell'])->name('stocks.sell');
+
+    Route::resource('users', UserController::class);
+    Route::resource('lends', LendController::class);
+
 });
 
 

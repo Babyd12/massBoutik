@@ -247,10 +247,10 @@
                   
                         <select name="period" id="period" class="form-control">
                             <option value=""> {{ __('messages.Select') }} {{ __('messages.A_female') }} {{ __('messages.Period') }} </option>
-                            <option value="Daily">Daily</option>
-                            <option value="Weekly">Weekly</option>
-                            <option value="Monthly">Monthly</option>
-                            <option value="Yearly">Yearly</option>
+                            <option value="Daily">{{__("messages.Daily")}}</option>
+                            <option value="Weekly">{{__("messages.Weekly")}}</option>
+                            <option value="Monthly">{{__("messages.Monthly")}}</option>
+                            <option value="Yearly">{{__("messages.Yearly")}}</option>
                         </select>
                         {!! $errors->first('period', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                     </div>
@@ -265,7 +265,7 @@
             <div class="row">
                 <div class="col-12 mt-3 mb-1">
                     <h4 class="text-uppercase"> {{ __('messages.Dashboard') }} </h4>
-                    <p> {{ __('Statistics') }} </p>
+                    <p> {{ __('messages.Statistics') }} </p>
                 </div>
             </div>
 
