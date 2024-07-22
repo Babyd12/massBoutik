@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Unit Per Packs
+    Product Lends
 @endsection
 
 @section('content')
@@ -13,11 +13,11 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Unit Per Packs') }}
+                                {{ __('Product Lends') }}
                             </span>
 
                              <div class="float-right">
-                                <a href="{{ route('unit-per-packs.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                <a href="{{ route('product-lends.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Create New') }}
                                 </a>
                               </div>
@@ -36,24 +36,26 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Title</th>
-									<th >Number</th>
+									<th >Product Id</th>
+									<th >Lend Id</th>
+									<th >User Id</th>
 
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($unitPerPacks as $unitPerPack)
+                                    @foreach ($productLends as $productLend)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
-										<td >{{ $unitPerPack->title }}</td>
-										<td >{{ $unitPerPack->number }}</td>
+										<td >{{ $productLend->product_id }}</td>
+										<td >{{ $productLend->lend_id }}</td>
+										<td >{{ $productLend->user_id }}</td>
 
                                             <td>
-                                                <form action="{{ route('unit-per-packs.destroy', $unitPerPack->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('unit-per-packs.show', $unitPerPack->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('unit-per-packs.edit', $unitPerPack->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                <form action="{{ route('product-lends.destroy', $productLend->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('product-lends.show', $productLend->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('product-lends.edit', $productLend->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -66,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                {!! $unitPerPacks->withQueryString()->links() !!}
+                {!! $productLends->withQueryString()->links() !!}
             </div>
         </div>
     </div>

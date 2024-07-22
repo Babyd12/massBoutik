@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('unit_per_packs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('number');
+            $table->string('title')->unique();
+            $table->integer('number')->unique();
             $table->timestamps();
         });
     }

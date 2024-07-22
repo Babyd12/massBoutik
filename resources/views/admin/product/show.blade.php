@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ $product->name ?? __('Show') . " " . __('Product') }}
+    {{ $product->name ?? __('messages.Show') . " " . __('messages.Product') }}
 @endsection
 
 @section('content')
@@ -11,10 +11,10 @@
                 <div class="card">
                     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="float-left">
-                            <span class="card-title">{{ __('Show') }} Product</span>
+                            <span class="card-title">{{ __('messages.Show') }}  {{__('messages.Product')}}</span>
                         </div>
                         <div class="float-right">
-                            <a class="btn btn-primary btn-sm" href="{{ route('products.index') }}"> {{ __('Back') }}</a>
+                            <a class="btn btn-primary btn-sm" href="{{ route('products.index') }}"> {{ __('messages.Back') }}</a>
                         </div>
                     </div>
 
@@ -25,20 +25,20 @@
                                     {{ $product->name }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Purshaceprice:</strong>
+                                    <strong>{{__('messages.PurchasePrice')}}:</strong>
                                     {{ $product->purshacePrice }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Sellingprice:</strong>
+                                    <strong>{{__('messages.Sellingprice')}}:</strong>
                                     {{ $product->sellingPrice }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>State:</strong>
+                                    <strong>{{__('messages.State')}}:</strong>
                                     {{ $product->state }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Unit Per Pack Id:</strong>
-                                    {{ $product->unit_per_pack_id }}
+                                    <strong>{{__('messages.Unit Per Pack Id')}}:</strong>
+                                    {{ $product->unitPerPack->title }}
                                 </div>
 
                     </div>

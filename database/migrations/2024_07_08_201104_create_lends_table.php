@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,9 +17,8 @@ return new class extends Migration
         Schema::create('lends', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->date('date');
-            $table->boolean('state');
-            $table->foreignIdFor(Service::class)->nullable()->constrained()->cascadeOnDelete();
+            $table->boolean('state')->default(true);
+            $table->foreignIdFor(Service::class)->nullable()->constrained()->cascadeOnDelete();    
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class UnitPerPack
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UnitPerPack extends Model
 {
-    
+    use HasFactory;
     protected $perPage = 20;
 
     /**

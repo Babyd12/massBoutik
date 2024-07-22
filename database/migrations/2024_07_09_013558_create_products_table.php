@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->float('purshacePrice');
-            $table->float('sellingPrice');
+            $table->string('name')->unique();
+            $table->float('purchace_price');
+            $table->float('selling_price');
             $table->boolean('state');
             $table->foreignIdFor(UnitPerPack::class)->constrained();
             $table->timestamps();

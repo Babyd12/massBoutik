@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+use App\Models\UnitPerPack;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
      */
     public function index(Request $request): View
     {
-        $products = Product::paginate();
+        $products = Product::with('unitPerPack')->paginate(10);
 
         return view('admin.product.index', compact('products'))
             ->with('i', ($request->input('page', 1) - 1) * $products->perPage());
@@ -25,11 +26,17 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(): RedirectResponse | View
     {
         $product = new Product();
+        $unitPerPack = UnitPerPack::all();
+        
+        if($unitPerPack->isEmpty()){
+            return Redirect::route('unit-per-packs.create')
+                ->with('warning', 'The purchase unit is empty, Please add one before add product.');
+        }
 
-        return view('admin.product.create', compact('product'));
+        return view('admin.product.create', compact('product', 'unitPerPack'));
     }
 
     /**
@@ -38,6 +45,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request): RedirectResponse
     {
         Product::create($request->validated());
+
 
         return Redirect::route('products.index')
             ->with('success', 'Product created successfully.');
@@ -59,8 +67,14 @@ class ProductController extends Controller
     public function edit($id): View
     {
         $product = Product::find($id);
+        $unitPerPack = UnitPerPack::all();
+        
+        if($unitPerPack->isEmpty()){
+            return Redirect::route('unit-per-packs.create')
+                ->with('warning', 'The purchase unit is empty, Please add one before add product.');
+        }
 
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.edit', compact('product', 'unitPerPack'));
     }
 
     /**

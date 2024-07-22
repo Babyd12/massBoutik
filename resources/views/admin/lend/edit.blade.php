@@ -1,23 +1,24 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('Create') }} Unit Per Pack
+    {{ __('messages.Update') }} {{__('messages.Lend')}}
 @endsection
 
 @section('content')
     <section class="content container-fluid">
-        <div class="row">
+        <div class="">
             <div class="col-md-12">
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Unit Per Pack</span>
+                        <span class="card-title">{{ __('messages.Update') }} Lend</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('unit-per-packs.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('lends.update', $lend->id) }}"  role="form" enctype="multipart/form-data">
+                            {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('unit-per-pack.form')
+                            @include('admin.lend.form')
 
                         </form>
                     </div>

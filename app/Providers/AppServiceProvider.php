@@ -23,5 +23,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('alertSuccesOrDanger', function ($expression) {
             return "<?php echo view('shared.alert', $expression)->render(); ?>";
         });
+
+        Blade::directive('buttonBack', function ($expression) {
+            return "<?php echo view('shared.buttonBack', $expression)->render(); ?>";
+        });
     }
 }
