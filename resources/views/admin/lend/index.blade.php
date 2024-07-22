@@ -13,13 +13,13 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Lends') }}
+                                {{ __('messages.Lends') }}
                             </span>
 
                             <div class="float-right">
                                 <a href="{{ route('lends.create') }}" class="btn btn-primary btn-sm float-right"
                                     data-placement="left">
-                                    {{ __('Create New') }}
+                                    {{ __('messages.Create New') }}
                                 </a>
                             </div>
                         </div>
@@ -36,11 +36,11 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        <th>Quantity</th>
-                                        <th>State</th>
-                                        <th>User</th>
-                                        <th>Product</th>
-                                        <th>Date du pret</th>
+                                        <th>{{__('messages.Quantity')}}</th>
+                                        <th>{{__('messages.Product')}}</th>
+                                        <th>{{__('messages.State')}}</th>
+                                        <th>{{__('messages.User')}}</th>
+                                        <th>{{__('messages.Date of lend')}}</th>
 
                                         <th></th>
                                     </tr>
@@ -50,23 +50,23 @@
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $productLend->lend->quantity }}</td>
-                                            <td>{{ $productLend->lend->state ? 'Active' : 'Inactive' }}</td>
-                                            <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->product->name }}</td>
+                                            <td>{{ $productLend->lend->state ? 'Impayé' : 'Payé' }}</td>
+                                            <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->created_at }}</td>
                                             <td>
                                                 <form action="{{ route('lends.destroy', $productLend->id) }}"method="POST">
                                                     <a class="btn btn-sm btn-primary"
                                                         href="{{ route('lends.show', $productLend->id) }}"><i
-                                                            class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                            class="fa fa-fw fa-eye"></i> {{ __('messages.Show') }}</a>
                                                     <a class="btn btn-sm btn-success"
                                                         href="{{ route('lends.edit', $productLend->id) }}"><i
-                                                            class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                            class="fa fa-fw fa-edit"></i> {{ __('messages.Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"
                                                         onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                            class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                            class="fa fa-fw fa-trash"></i> {{ __('messages.Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

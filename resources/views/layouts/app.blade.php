@@ -16,7 +16,13 @@
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
     
     @yield('css')
-
+        
+    <style>
+      
+        #sidebar  ul li ul li a {
+            margin-left: 10%;
+        }
+    </style>
     <!-- Remote icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
@@ -30,40 +36,43 @@
 
                 <!-- Sidebar -->
                 @section('sidebar')
-                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                        <div id="sidebar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                             <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                                 <span class="fs-5 d-none d-sm-inline">Mass Boutik</span>
                             </a>
-                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-end align-items-sm-start "
+                                id="menu">
                                 <li class="nav-item">
                                     <a href="{{ route('dashboard') }}" class="nav-link align-middle px-0">
-                                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                                        <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline"> {{ __('messages.Dashboard' )}} </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle" id="toggleArrow">
+                                    <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle"
+                                        id="toggleArrow">
                                         <i class="fs-4 bi-grid"></i>
-                                        <span class="ms-1 d-none d-sm-inline">{{ __('Gestion Des Produits') }}</span>
+                                        <span class="ms-1 d-none d-sm-inline">{{ __('messages.Product management') }}</span>
                                         <i class="bi bi-arrow-down" id="arrowIcon"></i>
                                     </a>
                                     <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                        <li class="w-100">
-                                            <a href="{{ route('rays.index') }}" class="nav-link px-0">
+                                        <li class="w-100" >
+                                            <a href="{{ route('rays.index') }}" class="nav-link px-0 ">
                                                 <i class="bi bi-windows"></i>
-                                                <span class="d-none d-sm-inline">{{ __('Voir Les Rayons') }}</span>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Show rays') }}</span>
                                             </a>
                                         </li>
-                                        <li class="w-100">
+                                        <li class="w-100 ml-8">
                                             <a href="{{ route('products.index') }}" class="nav-link px-0">
                                                 <i class="bi bi-app-indicator"></i>
-                                                <span class="d-none d-sm-inline">{{ __('Voir Les Produits') }}</span>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Show products') }}</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{ route('unit-per-packs.index') }}" class="nav-link px-0">
                                                 <i class="bi bi-layout-wtf"></i>
-                                                <span class="d-none d-sm-inline">{{ __('Voir les Unités Par Paquet') }}</span>
+                                                <span
+                                                    class="d-none d-sm-inline">{{ __('messages.Show unit per pack') }}</span>
                                             </a>
                                         </li>
                                         <li>
@@ -76,49 +85,76 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle" id="toggleArrow">
-                                        <i class="bi-box-seam"></i> <span class="ms-1 d-none d-sm-inline">{{ __('Gestion de stock') }}</span>
-                                        <i class="bi bi-arrow-down" id="arrowIcon"></i>
+                                    <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle"
+                                        id="toggleArrow">
+                                        <i class="bi-box-seam"></i> <span
+                                            class="ms-1 d-none d-sm-inline">{{ __('messages.Buys and Sells') }}</span>
                                     </a>
                                     <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                         <li class="w-100">
+                                            
                                             <a href="{{ route('stocks.index') }}" class="nav-link px-0">
-                                                <span class="d-none d-sm-inline">{{ __('Voir Stock De Produits') }}</span>
+                                                <i class="bi bi-arrow-left-right"></i>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Show buys and sells') }}</span>
                                             </a>
+                                            
+                                        </li>
+                                        <li class="w-100">
+                                            <a href="{{ route('stocks.create') }}" class="nav-link px-0">
+                                                <i class="bi bi-bag-plus-fill"></i>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Add buys or sells') }}</span>
+                                            </a>
+                                            
+                                        </li>
+                                        <li class="w-100">
+                                            <a href="{{ route('stocks.create') }}" class="nav-link px-0">
+                                                <i class="bi bi-bag-dash-fill"></i>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Add lend') }}</span>
+                                            </a>
+                                            
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle" id="toggleArrow">
-                                        <i class="fs-4 bi-people"></i>  <span class="ms-1 d-none d-sm-inline">{{ __('messages.Customers') }}</span>
+                                    <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle"
+                                        id="toggleArrow">
+                                        <i class="fs-4 bi-people"></i> <span
+                                            class="ms-1 d-none d-sm-inline">{{ __('messages.Customers') }}</span>
                                         <i class="bi bi-arrow-down" id="arrowIcon"></i>
                                     </a>
                                     <ul class="collapse nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
                                         <li class="w-100">
                                             <a href="{{ route('users.index') }}" class="nav-link px-0">
                                                 <i class="bi bi-person-circle"> </i>
-                                                    <span class="d-none d-sm-inline">{{ __('messages.Show customers') }}</span>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Show customers') }}</span>
                                             </a>
-                                        
+
                                         </li>
                                     </ul>
                                 </li>
-                               
-                             
-                                
+
+
+
                             </ul>
                             <hr>
                             <div class="dropdown pb-4">
-                                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                                    <span class="d-none d-sm-inline mx-1"> @auth {{ auth()->user()->full_name }} @endauth </span>
+                                <a href="#"
+                                    class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
+                                        class="rounded-circle">
+                                    <span class="d-none d-sm-inline mx-1"> @auth {{ auth()->user()->full_name }} @endauth
+                                    </span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                                <ul class="dropdown-menu dropdown-menu-dark text-small shadow"
+                                    aria-labelledby="dropdownUser1">
                                     <li><a class="dropdown-item" href="#">New project...</a></li>
                                     <li><a class="dropdown-item" href="#">Settings</a></li>
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{route('logout')}}">Sign out</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}">Sign out</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -139,9 +175,9 @@
             <!-- Footer -->
             <footer class="bg-body-tertiary text-center text-lg-start">
                 <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-                  © 2024 Copyright:
-                  <a class="text-body" href="https://massboutik.com/">MassBoutik.com</a>
-                  Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
+                    © 2024 Copyright:
+                    <a class="text-body" href="https://massboutik.com/">MassBoutik.com</a>
+                    Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                 </div>
             </footer>
         </div>
@@ -152,7 +188,7 @@
     <!-- Bootstrap JS -->
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-select.min.js') }}"></script>
-   
+
 
     <!-- DataTables JS -->
     <script src="{{ asset('js/datatables.min.js') }}"></script>
@@ -180,4 +216,5 @@
     </script>
     @yield('script')
 </body>
+
 </html>

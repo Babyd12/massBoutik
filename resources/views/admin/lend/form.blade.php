@@ -1,6 +1,6 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-        <a href="{{ route('stocks.index') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
+        <a href="{{ route('lends.index') }}" class="btn btn-primary btn-sm float-right" data-placement="left">
             <i class="bi bi-arrow-90deg-left"></i>
             {{ __('messages.Back') }}
         </a>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="quantity" class="form-label">{{ __('Quantity') }}</label>
+            <label for="quantity" class="form-label">{{ __('messages.Quantity') }}</label>
             <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity', $lend?->quantity) }}" id="quantity" placeholder="Quantity">
             {!! $errors->first('quantity', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>

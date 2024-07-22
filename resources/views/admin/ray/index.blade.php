@@ -13,7 +13,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('meesages.Rays') }}
+                                {{ __('messages.Rays') }}
                             </span>
 
                              <div class="float-right">
@@ -31,7 +31,7 @@
 
                     <div class="card-body bg-white">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                            <table id="data-table" class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>

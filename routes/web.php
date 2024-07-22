@@ -18,10 +18,10 @@ Route::get('/', function () {
 
 Route::get('login',[AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('login',[AuthController::class, 'authUser'])->name('auth_user')->middleware('guest');
-Route::post('logout',[AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('logout',[AuthController::class, 'logout'])->name('logout')->middleware('auth'); 
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/dashabord', [AdminHomeController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [AdminHomeController::class, 'index'])->name('dashboard');
     Route::get('dashboard/period/{period}', [AdminHomeController::class, 'recentSalesPerPeriod'])->name('dashboard.period');
 
     Route::resource('rays', RayController::class);

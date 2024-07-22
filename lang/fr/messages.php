@@ -83,6 +83,8 @@ return [
     'Show' => 'Voir',
 
     //stock
+    'Stocks' => 'Stocks',
+    'Stock' => 'Stock',
     'Choose' => 'Choisir',
     'Choose Product' => 'Choisir un produit',
     'Select',
@@ -111,17 +113,32 @@ return [
     //unit per pack
     'The purchase unit is empty, Please add one before add product' =>  'L\'unité d\'achat est vide, veuillez en ajouter une avant d\'ajouter le produit',
 
+    //lend 
+    'Quantity' => 'Quantité',
+    'User' => 'Utilisateur',
+    'Date of lend' => 'Date du prêt',
+    'Lends' => 'Prêts',
+
+
     //sidebar
+    'Home' => 'Home',
     'Product management' => 'Gestion des produits',
     'Customers management' => 'Gestion des utilisateurs',
     'Storage management' => 'Gestion de stock',
-    'Customers' => 'Utilisateurs',
+    'Customers' => 'Client(e)s',
+    'Customer' => 'Client(e)',
     'Show rays' => 'Voir les rayons',
-    'Show product' => 'Voir les produits',
+    'Show products' => 'Voir les produits',
     'Show sales' => 'Voir les ventes',
     'Show customers' => 'Voir les utilisateurs',
     'Show Borrowers' => 'Voir les emprunteurs',
     'Borrowers' => 'Emprunteurs',
+    'Buys - Sells' => 'Achats - ventes',
+    'Buys and Sells' => 'Achats et ventes',
+    'Show unit per pack' => 'Voir les Unités Par Paquet',
+    'Show buys and sells' => 'Voir les achats et ventes',
+    'Add buys or sells' => 'Enregistrer un achat ou une vente',
+    'Add lend' => 'Enregistrer un prêt',
 
     //home 
     'Expected profit' => 'Bénéfice attendu',
