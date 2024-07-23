@@ -23,10 +23,13 @@ class UserRequest extends FormRequest
     {
         return [
 			'full_name' => 'required|string',
-			'nick_name' => 'string',
-			'description' => 'string',
-			'email' => 'required|string',
-			'role' => 'required|string',
+			'nick_name' => 'nullable|string',
+			'description' => 'nullable|string',
+			'email' => 'nullable|string',
+			'role' => 'required|string|in:customer',
+            'picture' => 'nullable|image',
+            'phone' => 'nullable|integer',
+
         ];
     }
 }

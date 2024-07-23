@@ -21,7 +21,7 @@ return new class extends Migration
             $table->binary('picture')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             // $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
             $table->string('role');
             $table->foreign('role')->references('name')->on('roles')->constrained()->cascadeOnDelete();

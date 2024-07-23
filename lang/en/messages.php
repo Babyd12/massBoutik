@@ -149,5 +149,6 @@ return [
 
     // error message 
     'Quantity must be less or equal to current stock' => 'Quantity must be less than or equal to current stock',
+    'This field is required' => 'Ce champ est obligatoire',
 
 ];
