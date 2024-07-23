@@ -58,8 +58,8 @@ return [
     'Weekly' => 'Hebdomadaire',
     'Yearly' => 'Annuelle',
     'Statistics' => 'Statistiques',
-
-    'PurchasePrice' => 'Prix d\'achat ',
+    
+    'Purchaseprice' => 'Prix d\'achat ',
     'Sellingprice' => 'Prix de vente',
     'State' => 'Etat',
     'Unit Per Pack' => 'Unité par paqeut',

@@ -16,7 +16,7 @@
                     <select id="product-list" size="10" class="form-control">
                         <option value=""> {{__('messages.Select a product')}} </option>
                         @foreach ($products as $product)
-                            <option value="{{ $product->id }}" data-price="{{ $product->purshacePrice }}" data-sellingprice="{{ $product->sellingPrice }}"
+                            <option value="{{ $product->id }}" data-price="{{ $product->purchace_price }}" data-sellingprice="{{ $product->selling_price }}"
                                 @selected(old('product_id', $stock->product_id) == $product->id)>
                                 {{ $product->name }}
                             </option>

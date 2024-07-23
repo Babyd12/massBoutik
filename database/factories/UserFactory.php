@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'nick_name' => "Mass",
             'description' => fake()->name(),
             'picture' => fake()->name(),
-            'email' => 'mariama@massboutik3.com',
+            'email' => 'mariama@massboutik.com',
             'role' => 'admin',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

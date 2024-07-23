@@ -6,5 +6,5 @@
 
 <a href="{{ route($route) }}" class="{{ $class }}" data-placement="left">
     <i class="bi bi-arrow-90deg-left"></i>
-    {{ __($value) }}
+    {{ __('messages.'.$value) }}
 </a>

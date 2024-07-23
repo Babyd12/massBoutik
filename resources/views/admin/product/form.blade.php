@@ -7,7 +7,7 @@
             {!! $errors->first('name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="purchace_price" class="form-label">{{ __('messages.Purchaceprice') }}</label>
+            <label for="purchace_price" class="form-label">{{ __('messages.Purchaseprice') }}</label>
             <input type="text" name="purchace_price" class="form-control @error('purchace_price') is-invalid @enderror" value="{{ old('purchace_price', $product?->purchace_price) }}" id="purshace_price" placeholder="Purshaceprice">
             {!! $errors->first('purchace_price', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
@@ -41,6 +41,6 @@
 
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('messages.Submit') }}</button>
     </div>
 </div>
