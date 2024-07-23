@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role::factory(1)->create();
+        Role::factory(1)->create();
         User::factory(1)->create();
 
         //create fortory for unitperpack, for product
