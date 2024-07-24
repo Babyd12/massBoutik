@@ -23,6 +23,8 @@ Route::get('logout',[AuthController::class, 'logout'])->name('logout')->middlewa
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('dashboard', [AdminHomeController::class, 'index'])->name('dashboard');
     Route::get('dashboard/period/{period}', [AdminHomeController::class, 'recentSalesPerPeriod'])->name('dashboard.period');
+    Route::get('dashboard/profile', [AdminHomeController::class,'profile'])->name('dashboard.profile');
+    Route::post('dashboard/profile', [AdminHomeController::class,'updateProfile'])->name('dashboard.updateProfile');
 
     Route::resource('rays', RayController::class);
     Route::resource('products', ProductController::class);

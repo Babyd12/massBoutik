@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Phone;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -16,8 +18,7 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $users = User::paginate();
-
+        $users = User::with('phones')->paginate(10);
         return view('admin.user.index', compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * $users->perPage());
     }
@@ -37,10 +38,42 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        $data = $request->validated();
+        if(!empty($data['phone'])){
 
-        return Redirect::route('users.index')
+            DB::beginTransaction();
+            try {
+                $user = User::create([
+                    'full_name' => $data['full_name'],
+                    'nick_name' => $data['nick_name'],
+                    'role' => $data['role'],
+                    
+                ]);
+    
+               Phone::create([
+                    'indicative' => $data['indicative'],
+                    'phone' => $data['phone'],
+                    'user_id' => $user->id,
+                ]);
+
+                DB::commit();
+
+                return Redirect::route('users.index')
+                ->with('success', 'User created successfully.');
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return Redirect::route('users.create')
+                    ->with('error', $e->getMessage());
+            }
+
+        } else {
+            User::create($data);
+            return Redirect::route('users.index')
             ->with('success', 'User created successfully.');
+        }
+
+      
     }
 
     /**
@@ -58,7 +91,7 @@ class UserController extends Controller
      */
     public function edit($id): View
     {
-        $user = User::find($id);
+        $user = User::with('phones')->find($id);
 
         return view('admin.user.edit', compact('user'));
     }
@@ -68,10 +101,50 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user): RedirectResponse
     {
-        $user->update($request->validated());
+        $data = $request->validated();
+        if(!empty($data['phone'])){
 
-        return Redirect::route('users.index')
+            DB::beginTransaction();
+            
+            try {
+                 $user->update([
+                    'full_name' => $data['full_name'],
+                    'nick_name' => $data['nick_name'],
+                    'role' => $data['role'],        
+                ]);
+
+                $phone = Phone::where('user_id', $user->id)->first(); 
+        
+                if ($phone) {
+                    $phone->update([
+                        'phone' => $data['phone'],
+                    ]);
+                } else {            
+                    Phone::create([
+                        'indicative' => $data['indicative'],
+                        'phone' => $data['phone'],
+                        'user_id' => $user->id,
+                    ]);
+                }
+
+                DB::commit();
+
+                return Redirect::route('users.index')
+                ->with('success', 'User created successfully.');
+
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return Redirect::route('users.edit', $user->id)
+                    ->with('error', $e->getMessage());
+            }
+
+        } else {
+            User::create($data);
+            return Redirect::route('users.index')
             ->with('success', 'User updated successfully');
+        }
+
+    
     }
 
     public function destroy($id): RedirectResponse

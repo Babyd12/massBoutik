@@ -20,7 +20,6 @@ use Illuminate\Foundation\Auth\User as Authententicatable;
  * @property $email_verified_at
  * @property $password
  * @property $role
- * @property $phone_id
  * @property $remember_token
  * @property $created_at
  * @property $updated_at
@@ -41,15 +40,15 @@ class User extends Authententicatable
      *
      * @var array<int, string>
      */
-    protected $fillable = ['full_name', 'nick_name', 'description', 'picture', 'email', 'role', 'phone_id'];
+    protected $fillable = ['full_name', 'nick_name', 'description', 'picture', 'email', 'role'];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function phone()
+    public function phones()
     {
-        return $this->belongsTo(Phone::class, 'phone_id', 'id');
+        return $this->hasMany(Phone::class, 'user_id', 'id');
     }
     
     /**
@@ -64,6 +63,16 @@ class User extends Authententicatable
     {
         return $this->hasMany(ProductLend::class);
     }
+
+    public function getImageAttribute()
+    {
+        if ($this->picture) {
+            return asset('storage/users/' . $this->picture);
+        }
+
+        return asset('storage/users/default.png');
+    }
+
 
     
 }

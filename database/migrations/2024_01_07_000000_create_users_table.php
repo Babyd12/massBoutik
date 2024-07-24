@@ -25,7 +25,6 @@ return new class extends Migration
             // $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
             $table->string('role');
             $table->foreign('role')->references('name')->on('roles')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Phone::class)->nullable()->constrained()->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

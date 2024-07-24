@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    {{ __('messages.Update') }} Unit Per Pack
+    {{ __('messages.Update') }}  {{ __('messages.Unit Per Pack') }} 
 @endsection
 
 @section('content')

@@ -25,8 +25,8 @@ return [
     'Product' => 'Produit',
     'Products' => 'Produits',
     'Lougout' => 'Deconnexion',
-    'Enable' => 'Activé',
-    'Disable' => 'Désactivé',
+    'Enable' => 'Actif',
+    'Disable' => 'Innactif',
 
     'Name' => 'Nom',
     'Day' => 'Jour',
@@ -102,6 +102,11 @@ return [
     'Choose a Product' => 'Choisir un produit',
 
     //user
+    'Users' => 'Utilisateurs',
+    'User' => 'Utilisateur',
+    'Customers' => 'Clients',
+    'Customer' => 'Client',
+    'Create User' => 'Ajouter un utilisateur',
     'Full Name' => 'Nom Complet',
     'Nick Name' => 'Sur nom',
     'Description' => 'Description',
@@ -109,6 +114,7 @@ return [
     'Email' => 'Email',
     'Role' => 'Role',
     'Phone' => 'Télephone',
+    'Indicative' => 'Indicatif',
 
     //unit per pack
     'The purchase unit is empty, Please add one before add product' =>  'L\'unité d\'achat est vide, veuillez en ajouter une avant d\'ajouter le produit',
@@ -130,7 +136,7 @@ return [
     'Show rays' => 'Voir les rayons',
     'Show products' => 'Voir les produits',
     'Show sales' => 'Voir les ventes',
-    'Show customers' => 'Voir les utilisateurs',
+    'Show customers' => 'Voir les client(e)s',
     'Show Borrowers' => 'Voir les emprunteurs',
     'Borrowers' => 'Emprunteurs',
     'Buys - Sells' => 'Achats - ventes',
@@ -149,6 +155,8 @@ return [
 
     // error message 
     'Quantity must be less or equal to current stock' => 'La quantité doit être inférieure ou égale au stock actuel',
+    'The purchase unit is empty, Please add one before add product.' => 'L\'unité d\'achat est vide, veuillez en ajouter une avant d\'ajouter un produit.',
+
 
 
 

@@ -17,17 +17,23 @@
             {!! $errors->first('selling_price', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         
-        <div class="btn-group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_true" value="0" {{ old('state', $product?->state) == 1 ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="state_true">{{ __('Enable') }}</label>
-            
-            <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_false" value="1" {{ old('state', $product?->state) == 0 ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="state_false">{{ __('Disable') }}</label>
-        
+        <div class="btn-group" aria-label="Basic radio toggle button group"> 
+            <!-- Radio Button for Disable -->
+            <input type="radio" class="btn-check @error('state') is-invalid @enderror"  name="state" id="state_false" value="0"
+                   {{ old('state', $product?->state) == 0 ? 'checked' : '' }}>
+            <label class="btn btn-outline-primary" for="state_false">{{ __('messages.Disable') }}</label>
+
+            <!-- Radio Button for Enable -->
+            <input type="radio" class="btn-check @error('state') is-invalid @enderror" ame="state" id="state_true" value="1"
+                   @if (Route::is('products.create'))
+                        {{ old('state', $product?->state) == 1  ? 'checked' : 'checked' }}>
+                    @else
+                        {{ old('state', $product?->state) == 1  ? 'checked' : '' }}>
+                    @endif
+
+            <label class="btn btn-outline-primary" for="state_true">{{ __('messages.Enable') }}</label>
             {!! $errors->first('state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        
-       
 
         <div class="form-group mb-2 mb20">
             <label for="unit_per_pack_id" class="form-label">{{ __('Unit Per Pack Id') }}</label>

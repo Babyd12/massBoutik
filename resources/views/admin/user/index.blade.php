@@ -38,9 +38,6 @@
                                         
 									<th >{{__("messages.Full Name")}}</th>
 									<th >{{__("messages.Nick Name")}}</th>
-									<th >{{__("messages.Description")}}</th>
-									<th >{{__("messages.Picture")}}</th>
-									<th >{{__("messages.Email")}}</th>
 									<th >{{__("messages.Role")}}</th>
 									<th >{{__("messages.Phone")}}</th>
 
@@ -48,17 +45,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                   
                                     @foreach ($users as $user)
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
 										<td >{{ $user->full_name }}</td>
 										<td >{{ $user->nick_name }}</td>
-										<td >{{ $user->description }}</td>
-										<td >{{ $user->picture }}</td>
-										<td >{{ $user->email }}</td>
 										<td >{{ $user->role }}</td>
-										<td >{{ $user->phone_id }}</td>
+                                      
+                                        <td>
+                                            @foreach ($user->phones as $phone)
+                                                {{ $phone->phone }} 
+                                                @if (!$loop->last)
+                                                    <br>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                      
 
                                             <td>
                                                 <form action="{{ route('users.destroy', $user->id) }}" method="POST">
@@ -80,9 +84,5 @@
             </div>
         </div>
     </div>
-    {{-- <script>
-        $(document).ready(function() {
-            $('#data-table').DataTable();
-        });
-    </script> --}}
+  
 @endsection
