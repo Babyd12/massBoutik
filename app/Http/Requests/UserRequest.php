@@ -29,22 +29,21 @@ class UserRequest extends FormRequest
         $indicatives = Indicative::cases();
 
         // convert enum to array of values
-        $indicativeValues =  array_map(fn($case) => $case->value, $indicatives);
-        
+        $indicativeValues =  array_map(fn ($case) => $case->value, $indicatives);
+
         // join array to string for validation rule in request
         $indicativeValuesString = implode(',', $indicativeValues);
 
         $indicativeInstance = '';
         // store indicative instance if is in 
-        foreach($indicatives as $indicative)
-        {
-            if($indicative->value == $this->input('indicative') ){
-             
+        foreach ($indicatives as $indicative) {
+            if ($indicative->value == $this->input('indicative')) {
+
                 $indicativeInstance = $indicative;
                 break;
             }
         }
-      
+
         /**
          * @return array 
          * @info convert indicative instances in array
@@ -53,24 +52,23 @@ class UserRequest extends FormRequest
         /**
          * @return string
          */
-        
+
         if ($indicativeInstance && !in_array($indicativeInstance->value, $indicativeValues)) {
             //Because the field indidcative in not valide i return invalid for this field
             return [
                 'indicative' => 'required|in:trusUser001@#iconX****ak99**',
             ];
         }
-        
+
         return [
-			'full_name' => 'required|string',
-			'nick_name' => 'nullable|string',
-			'description' => 'nullable|string',
-			'email' => 'nullable|string',
-			'role' => 'required|string|in:customer',
+
+            'full_name' => 'required|string',
+            'nick_name' => 'nullable|string',
             'picture' => 'nullable|image',
             'phone' => ['nullable', new PhoneNumber($indicativeInstance)],
-            'indicative' => 'required_with:phone|integer|in:'.$indicativeValuesString,
-
+            'indicative' => 'required_with:phone|integer|in:' . $indicativeValuesString,
+            // 'description' => 'nullable|string',
+            'email' => 'nullable|string',
 
         ];
     }

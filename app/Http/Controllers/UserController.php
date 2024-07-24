@@ -38,19 +38,17 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse
     {
+        
         $data = $request->validated();
-        if(!empty($data['phone'])){
+        $data['role'] =  auth()->user()->email == $data['email'] ? 'admin' : 'customer';
 
+        if (!empty($data['phone'])) {
+            dd($data);
             DB::beginTransaction();
             try {
-                $user = User::create([
-                    'full_name' => $data['full_name'],
-                    'nick_name' => $data['nick_name'],
-                    'role' => $data['role'],
-                    
-                ]);
-    
-               Phone::create([
+                $user = User::create($data);
+
+                Phone::create([
                     'indicative' => $data['indicative'],
                     'phone' => $data['phone'],
                     'user_id' => $user->id,
@@ -59,21 +57,17 @@ class UserController extends Controller
                 DB::commit();
 
                 return Redirect::route('users.index')
-                ->with('success', 'User created successfully.');
-
+                    ->with('success', 'User created successfully.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return Redirect::route('users.create')
                     ->with('error', $e->getMessage());
             }
-
         } else {
             User::create($data);
             return Redirect::route('users.index')
-            ->with('success', 'User created successfully.');
+                ->with('success', 'User created successfully.');
         }
-
-      
     }
 
     /**
@@ -102,24 +96,21 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         $data = $request->validated();
-        if(!empty($data['phone'])){
+        $data['role'] =  auth()->user()->email == $data['email'] ? 'admin' : 'customer';
+
+        if (!empty($data['phone'])) {
 
             DB::beginTransaction();
-            
-            try {
-                 $user->update([
-                    'full_name' => $data['full_name'],
-                    'nick_name' => $data['nick_name'],
-                    'role' => $data['role'],        
-                ]);
 
-                $phone = Phone::where('user_id', $user->id)->first(); 
-        
+            try {
+                $user->update($data);
+                $phone = Phone::where('user_id', $user->id)->first();
+
                 if ($phone) {
                     $phone->update([
                         'phone' => $data['phone'],
                     ]);
-                } else {            
+                } else {
                     Phone::create([
                         'indicative' => $data['indicative'],
                         'phone' => $data['phone'],
@@ -130,21 +121,17 @@ class UserController extends Controller
                 DB::commit();
 
                 return Redirect::route('users.index')
-                ->with('success', 'User created successfully.');
-
+                    ->with('success', 'User created successfully.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 return Redirect::route('users.edit', $user->id)
                     ->with('error', $e->getMessage());
             }
-
         } else {
             User::create($data);
             return Redirect::route('users.index')
-            ->with('success', 'User updated successfully');
+                ->with('success', 'User updated successfully');
         }
-
-    
     }
 
     public function destroy($id): RedirectResponse

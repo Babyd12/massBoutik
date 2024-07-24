@@ -35,7 +35,7 @@
             <div class="row flex-nowrap">
 
                 <!-- Sidebar -->
-                @dump(auth()->user()->image )
+              
                 @section('sidebar')
                     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                         <div id="sidebar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -145,9 +145,10 @@
                            
                                     class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                                     id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ auth()->user()->image }}"alt="hugenerd" width="30" height="30" class="rounded-circle" >
-                                    {{-- <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
-                                        class="rounded-circle"> --}}
+                                    @auth
+                                        <img src="{{ auth()->user()->image }}"alt="hugenerd" width="30" height="30" class="rounded-circle" >                                       
+                                    @endauth
+                                    
                                     <span class="d-none d-sm-inline mx-1"> @auth {{ auth()->user()->full_name }} @endauth
                                     </span>
                                 </a>
