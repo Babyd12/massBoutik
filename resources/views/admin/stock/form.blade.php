@@ -36,13 +36,6 @@
                         value="{{ old('price', $stock?->price) }}" id="price" placeholder="Price" readonly>
                     {!! $errors->first('price', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                 </div>
-
-                <div id="new_price" class="col">
-                    <label for="new_price" class="form-label">{{ __('messages.New Price') }}</label>
-                    <input type="number" name="new_price" class="form-control" id="">
-                    {!! $errors->first('new_price', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-
-                </div>
             </div>
 
             {{-- selling price --}}
@@ -50,7 +43,7 @@
             <div class="form-group mb-2 mb20 row">
                 <div class="col">
                     <label for="price" class="form-label">{{ __('messages.Sell Price') }}</label>
-                    <input type="text" name="sellPrice" id="product-selling-price"
+                    <input type="text" name="selling_price" id="product-selling-price"
                         class="form-control @error('sellPrice') is-invalid @enderror"
                         value="{{ old('sellPrice', $stock?->price) }}"  placeholder="Sell Price" readonly>
                     {!! $errors->first('sellPrice', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}

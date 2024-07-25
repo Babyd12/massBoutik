@@ -24,7 +24,8 @@ class StockRequest extends FormRequest
         return [
 			'quantity' => 'required',
 			'operation' => 'required|string',
-			'price' => 'required',
+			'price' => 'required|integer',
+            'selling_price' => 'required|integer',
 			'product_id' => 'required',
             'new_price' => 'nullable|integer',
         ];

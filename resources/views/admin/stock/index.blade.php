@@ -39,10 +39,10 @@
                                     <tr>
                                         <th>No</th>
                                         
+                                        <th >{{__('messages.Operation')}}</th>
 									<th >{{__('messages.Quantity')}}</th>
-									<th >{{__('messages.Operation')}}</th>
-									<th >{{__('messages.Price')}}</th>
 									<th >{{__('messages.Product')}}</th>
+									<th >{{__('messages.Sell price')}}</th>
 									<th >{{__('messages.created_at')}}</th>
 
                                         <th></th>
@@ -53,10 +53,10 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                                 
-                                            <td >{{ $stock->quantity }}</td>
                                             <td >{{ __('messages.'.$stock->operation) }}</td>
-                                            <td >{{ $stock->price }}</td>
+                                            <td >{{ $stock->quantity }}</td>
                                             <td >{{ $stock->product->name }}</td>
+                                            <td >{{ $stock->product->selling_price }}</td>
                                             <td >{{ $stock->created_at }}</td>
                                             <td>
                                                 <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST">

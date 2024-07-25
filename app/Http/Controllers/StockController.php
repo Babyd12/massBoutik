@@ -65,9 +65,10 @@ class StockController extends Controller
             $currentStock = Stock::getCurrentStockByProductId($product->id);
             if($data['quantity'] > $currentStock ){
                 return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
-            }   
+            }  
             $data['quantity'] = -abs($data['quantity']);
         }
+        $data['price'] = $data['selling_price'];
         Stock::create($data);
 
         return Redirect::route('stocks.index')
@@ -108,7 +109,9 @@ class StockController extends Controller
      */
     public function update(StockRequest $request, Stock $stock): RedirectResponse
     {
-        $data = $request->validated();   
+        $data = $request->validated();  
+        $data['price'] = $data['selling_price'];
+        
         if(!empty($data['new_price'])){
             $data['price'] = $data['new_price'];
         }
@@ -120,7 +123,6 @@ class StockController extends Controller
         if($data['quantity'] > $currentStock ){
             return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
         }
-  
         $stock->update($data);
 
         return Redirect::route('stocks.index')

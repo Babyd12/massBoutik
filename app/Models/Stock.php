@@ -44,19 +44,40 @@ class Stock extends Model
     {
         return self::where('product_id', $product_id)->sum('quantity');
     }
-
-    public static function getStockByOperation($operation, $day = null)
+    
+    public static function getStockByOperation($operation, $period = null)
     {
-        if (empty($day)) {
-            return self::where('operation', $operation)
-                ->where('created_at', '>=', now())
-                ->get();
-        } else {
-            return self::where('operation', $operation)
-                ->where('created_at', '>=', now()->subDays(7))
-                ->get();
+        switch ($period) {
+            case 'daily':
+                return self::where('operation', $operation)
+                    ->whereDate('created_at', '=', now()->toDateString())
+                    ->get();
+                break;
+
+            case 'weekly':
+                return self::where('operation', $operation)
+                    ->whereDate('created_at', '>=', now()->startOfWeek())
+                    ->whereDate('created_at', '<=', now()->endOfWeek())
+                    ->get();
+                break;
+
+            case 'monthly':
+                return self::where('operation', $operation)
+                    ->whereDate('created_at', '>=', now()->startOfMonth())
+                    ->whereDate('created_at', '<=', now()->endOfMonth())
+                    ->get();
+                break;
+
+            case 'yearly':
+                return self::where('operation', $operation)
+                    ->whereDate('created_at', '>=', now()->startOfYear())
+                    ->whereDate('created_at', '<=', now()->endOfYear())
+                    ->get();
+                break;
+
+            default:
+                return self::where('operation', $operation)
+                    ->get();
         }
     }
-
-   
 }

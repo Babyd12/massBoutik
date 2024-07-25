@@ -17,13 +17,13 @@ class AdminHomeController extends Controller
     {
         $sales = Stock::getStockByOperation('clearance');
         $salesCount = $sales->count();
-        $salesSum = $sales->sum('price');
+        $salesSum = $sales->sum(function ($stock) {
+            return $stock->product->selling_price;
+        });  
         $period = 'Daily';
         $products = Product::with('stocks')->get();
         $totalProfit = Product::getTotalProfit($products);
         
-        
-
         return view('admin.home', [
             // compact('sales', 'salesCount', 'salesSum', 'period', 'products')
             'sales' => $sales,
@@ -38,10 +38,24 @@ class AdminHomeController extends Controller
     public function recentSalesPerPeriod(Request $request): View
     {
         $period = $request->period;
-        $sales = $recentSales = Stock::getStockByOperation('clearance', $period);
+        $sales =  Stock::getStockByOperation('clearance', $period);
         $salesCount = $sales->count();
         $salesSum = $sales->sum('price');
-        return view('admin.home', compact('sales', 'salesCount', 'salesSum', 'period'));
+        
+        $products = Product::with('stocks')->get();
+        $totalProfit = Product::getTotalProfit($products);
+        
+        
+
+        return view('admin.home', [
+            'period' => $period,
+            'sales' => $sales,
+            'salesCount' => $salesCount,
+            'salesSum' => $salesSum,
+            'period' => $period,
+            'products' => $products,
+            'totalProfit' => $totalProfit,
+        ]);
     }
 
     public function profile(): View

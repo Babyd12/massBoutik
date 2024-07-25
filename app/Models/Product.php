@@ -44,13 +44,15 @@ class Product extends Model
         foreach ($products as $product) {
             $totalQuantity = 0; 
             foreach($product->stocks as $stock){
-                if($stock->quantity){
+                if($stock->quantity && $stock->operation == 'storage'){
                     $totalQuantity += $stock->quantity;
                 }else{
                     break;
                 }
             }
-            $totalProfit += $product->selling_price * $totalQuantity;
+            //convert string to int
+            $sellingPrice = floatval($product->selling_price);
+            $totalProfit += $sellingPrice * $totalQuantity;
         }
         return self::money_format($totalProfit);
     }

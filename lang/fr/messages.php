@@ -89,6 +89,7 @@ return [
     'Choose Product' => 'Choisir un produit',
     'Select',
     'Sell Price' => 'Prix de vente',
+    'Sell price' => 'Prix de vente',
     'Buy Price' => 'Prix d\'achat',
     'Quantity' => 'Quantité',
     'Operation' => 'Opération',
