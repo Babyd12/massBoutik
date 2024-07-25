@@ -153,7 +153,16 @@ class UserController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        User::find($id)->delete();
+        $user = User::find($id);
+
+        if($user->picture){
+            $existPath = $user->picture;
+            //delete the exist path
+            if($existPath && Storage::disk('public')->exists($existPath) ){
+                Storage::disk('public')->delete($existPath);
+            }
+        }
+        $user->delete();
 
         return Redirect::route('users.index')
             ->with('success', 'User deleted successfully');

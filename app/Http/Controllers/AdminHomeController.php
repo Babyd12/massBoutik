@@ -19,7 +19,7 @@ class AdminHomeController extends Controller
         $salesCount = $sales->count();
         $salesSum = $sales->sum('price');
         $period = 'Daily';
-        $products = Product::with('unitPerPack')->get();
+        $products = Product::with('stocks')->get();
         $totalProfit = Product::getTotalProfit($products);
         
         
