@@ -124,6 +124,10 @@ return [
     'User' => 'Utilisateur',
     'Date of lend' => 'Date du prêt',
     'Lends' => 'Prêts',
+    'Add lend' => 'Faire un pêt',
+    'List of Borrowers' => 'Liste des emprunteurs',
+    'Paid' => 'Payé',
+    'Outstanding payement' => 'impayé',
 
 
     //sidebar
@@ -135,6 +139,7 @@ return [
     'Customer' => 'Client(e)',
     'Show rays' => 'Voir les rayons',
     'Show products' => 'Voir les produits',
+    'Add product' => 'Voir les produits',
     'Show sales' => 'Voir les ventes',
     'Show customers' => 'Voir les client(e)s',
     'Show Borrowers' => 'Voir les emprunteurs',
@@ -144,7 +149,8 @@ return [
     'Show unit per pack' => 'Voir les Unités Par Paquet',
     'Show buys and sells' => 'Voir les achats et ventes',
     'Add buys or sells' => 'Enregistrer un achat ou une vente',
-    'Add lend' => 'Enregistrer un prêt',
+    'Register a loan' => 'Enregistrer un prêt',
+    'Register the loan' => 'Enregistrer le prêt',
 
     //home 
     'Expected profit' => 'Bénéfice attendu',

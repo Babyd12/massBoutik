@@ -6,7 +6,7 @@
 @endsection
 
 @section('template_title')
-    {{ __('Create') }} Lend
+    {{ __('messages.Register a loan') }}
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                 @alertSuccesOrDanger
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Lend</span>
+                        <span class="card-title">{{ __('messages.Register a loan') }}</span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('lends.store') }}"  role="form" enctype="multipart/form-data">

@@ -24,13 +24,12 @@
             <label class="btn btn-outline-primary" for="state_false">{{ __('messages.Disable') }}</label>
 
             <!-- Radio Button for Enable -->
-            <input type="radio" class="btn-check @error('state') is-invalid @enderror" ame="state" id="state_true" value="1"
+            <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_true" value="1"
                    @if (Route::is('products.create'))
                         {{ old('state', $product?->state) == 1  ? 'checked' : 'checked' }}>
                     @else
                         {{ old('state', $product?->state) == 1  ? 'checked' : '' }}>
                     @endif
-
             <label class="btn btn-outline-primary" for="state_true">{{ __('messages.Enable') }}</label>
             {!! $errors->first('state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>

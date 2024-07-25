@@ -67,10 +67,10 @@ class User extends Authententicatable
     public function getImageAttribute()
     {
         if ($this->picture) {
-            return asset('storage/users/' . $this->picture);
+            return asset('storage/' . $this->picture);
         }
 
-        return asset('storage/users/default.png');
+        // return asset('storage/images/users/default.jpg');
     }
 
 

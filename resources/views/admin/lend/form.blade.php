@@ -16,7 +16,7 @@
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}" data-price="{{ $product->purshacePrice }}" data-sellingprice="{{ $product->sellingPrice }}"
                                 @selected(old('product_id', $lend->product_id) == $product->id)>
-                                {{ $product->id }} 
+                                {{ $product->name }} 
                             </option>
                         @endforeach
                     </select>
@@ -54,14 +54,16 @@
 
         <div class="form-group mb-2 mb20" aria-label="Basic radio toggle button group">
             <label for="state" class="form-check-label">{{ __('messages.State') }}</label><br>
-            
-            <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_true" value="1" 
-                {{ old('state', $lend?->state) == 1 || is_null(old('state', $lend?->state)) ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="state_true">{{ __('Enable') }}</label>
-        
+               
             <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_false" value="0" 
                 {{ old('state', $lend?->state) == 0 ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="state_false">{{ __('Disable') }}</label>
+            <label class="btn btn-outline-primary" for="state_false">{{ __('messages.Outstanding payement') }}</label>
+
+
+            <input type="radio" class="btn-check @error('state') is-invalid @enderror" name="state" id="state_true" value="1" 
+             
+                {{ old('state', $lend?->state) == 1  ? 'checked' : '' }}>
+            <label class="btn btn-outline-primary" for="state_true">{{ __('messages.Paid') }}</label>
         
             {!! $errors->first('state', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
@@ -71,7 +73,7 @@
     </div>
 
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('messages.Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('messages.Register the loan') }}</button>
     </div>
 </div>
 

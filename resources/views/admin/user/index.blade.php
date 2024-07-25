@@ -36,6 +36,7 @@
                                     <tr>
                                         <th>No</th>
                                         
+									{{-- <th >{{__("messages.Picture")}}</th> --}}
 									<th >{{__("messages.Full Name")}}</th>
 									<th >{{__("messages.Nick Name")}}</th>
 									<th >{{__("messages.Role")}}</th>
@@ -50,6 +51,7 @@
                                         <tr>
                                             <td>{{ ++$i }}</td>
                                             
+										{{-- <td > <img  src="{{ $user->image }}" class="img-fluid rounded-top" alt="" width="50" height="50"/> </td> --}}
 										<td >{{ $user->full_name }}</td>
 										<td >{{ $user->nick_name }}</td>
 										<td >{{ $user->role }}</td>

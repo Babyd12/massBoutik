@@ -69,6 +69,12 @@
                                                 <span class="d-none d-sm-inline">{{ __('messages.Show products') }}</span>
                                             </a>
                                         </li>
+                                        <li class="w-100 ml-8">
+                                            <a href="{{ route('products.create') }}" class="nav-link px-0">
+                                                <i class="bi bi-app-indicator"></i>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Add product') }}</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('unit-per-packs.index') }}" class="nav-link px-0">
                                                 <i class="bi bi-layout-wtf"></i>
@@ -76,19 +82,15 @@
                                                     class="d-none d-sm-inline">{{ __('messages.Show unit per pack') }}</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="{{ route('lends.index') }}" class="nav-link px-0">
-                                                <i class="bi bi-cash-stack"></i>
-                                                <span class="d-none d-sm-inline">{{ __('messages.Show Borrowers') }}</span>
-                                            </a>
-                                        </li>
+                                        
+                                        
 
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle"
                                         id="toggleArrow">
-                                        <i class="bi-box-seam"></i> <span
+                                        <i class="fs-4  bi-box-seam"></i> <span
                                             class="ms-1 d-none d-sm-inline">{{ __('messages.Buys and Sells') }}</span>
                                     </a>
                                     <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
@@ -102,17 +104,22 @@
                                         </li>
                                         <li class="w-100">
                                             <a href="{{ route('stocks.create') }}" class="nav-link px-0">
-                                                <i class="bi bi-bag-plus-fill"></i>
+                                                <i class="bi bi-journal-plus"></i>
                                                 <span class="d-none d-sm-inline">{{ __('messages.Add buys or sells') }}</span>
                                             </a>
                                             
                                         </li>
                                         <li class="w-100">
-                                            <a href="{{ route('stocks.create') }}" class="nav-link px-0">
-                                                <i class="bi bi-bag-dash-fill"></i>
+                                            <a href="{{ route('lends.create') }}" class="nav-link px-0">
+                                                <i class="bi bi-journal-minus"></i>
                                                 <span class="d-none d-sm-inline">{{ __('messages.Add lend') }}</span>
+                                            </a>                                           
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('lends.index') }}" class="nav-link px-0">
+                                                <i class="bi bi-journal-text"></i>
+                                                <span class="d-none d-sm-inline">{{ __('messages.Show Borrowers') }}</span>
                                             </a>
-                                            
                                         </li>
                                     </ul>
                                 </li>
@@ -131,6 +138,7 @@
                                             </a>
 
                                         </li>
+                                        
                                     </ul>
                                 </li>
 

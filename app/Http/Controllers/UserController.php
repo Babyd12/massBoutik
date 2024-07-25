@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
 use App\Models\User;
 use App\Models\Phone;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
@@ -38,12 +39,17 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): RedirectResponse
     {
-        
+
         $data = $request->validated();
         $data['role'] =  auth()->user()->email == $data['email'] ? 'admin' : 'customer';
 
+        if($request->hasFile('picture')){
+            $path = $request->file('picture')->store('images/users', 'public');
+            $data['picture'] = $path;
+        }
+
         if (!empty($data['phone'])) {
-            dd($data);
+
             DB::beginTransaction();
             try {
                 $user = User::create($data);
@@ -98,6 +104,17 @@ class UserController extends Controller
         $data = $request->validated();
         $data['role'] =  auth()->user()->email == $data['email'] ? 'admin' : 'customer';
 
+        if($request->hasFile('picture')){
+            $existPath = $user->picture;
+            //delete the exist path
+            if($existPath && Storage::disk('public')->exists($existPath) ){
+                Storage::disk('public')->delete($existPath);
+            }
+            //upload new picture path
+            $path = $request->file('picture')->store('images/users', 'public');
+            $data['picture'] = $path;
+        }
+        // dd($data);
         if (!empty($data['phone'])) {
 
             DB::beginTransaction();
