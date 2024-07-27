@@ -38,26 +38,28 @@ class Product extends Model
     protected $fillable = ['name',  'wholesale_price' , 'purchace_price',  'selling_price','state', 'unit_per_pack_id'];
     
 
-    public  function getTotalProfitPerProduct()
-    {
-        //selling_price = profitPerUnit, so dont need to do $this->selling_price - $this->purchase_price;
-        $unitPerPack = $this->unitPerPack->number;
-        $profit = $this->selling_price  * $unitPerPack;
-        return $profit;
-    }   
-
     public static function getTotalProfit($products)
     {
         $totalProfit = 0;
         foreach ($products as $product) {
-            $totalProfit += $product->getTotalProfitPerProduct();
+            $totalQuantity = 0; 
+            foreach($product->stocks as $stock){
+                if($stock->quantity && $stock->operation == 'storage'){
+                    $totalQuantity += $stock->quantity;
+                }else{
+                    break;
+                }
+            }
+            //convert string to int
+            $sellingPrice = floatval($product->selling_price);
+            $totalProfit += $sellingPrice * $totalQuantity;
         }
-        return number_format($totalProfit, 0, ',', ' ');
+        return self::money_format($totalProfit);
     }
 
-    public function money_format()
+    public static function money_format($format)
     {
-        return number_format($this->selling_price, 2, '.', ',');
+        return number_format($format, 0, '.', ',');
     }
 
     public function stateFormat()

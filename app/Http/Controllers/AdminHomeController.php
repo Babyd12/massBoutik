@@ -17,15 +17,19 @@ class AdminHomeController extends Controller
     {
         $sales = Stock::getStockByOperation('clearance');
         $salesCount = $sales->count();
-        $salesSum = $sales->sum('price');
+        $salesSum = 0;
+        foreach ($sales as $sale) {
+            if ($sale->operation_type == 'bulk') {
+                $salesSum += $sale->product->wholesale_price - $sale->product->purchace_price;
+            } else {
+                $salesSum += $sale->price;
+            }
+        }
         $period = 'Daily';
         $products = Product::with('unitPerPack')->get();
         $totalProfit = Product::getTotalProfit($products);
-        
-        
 
         return view('admin.home', [
-            // compact('sales', 'salesCount', 'salesSum', 'period', 'products')
             'sales' => $sales,
             'salesCount' => $salesCount,
             'salesSum' => $salesSum,
@@ -38,10 +42,29 @@ class AdminHomeController extends Controller
     public function recentSalesPerPeriod(Request $request): View
     {
         $period = $request->period;
-        $sales = $recentSales = Stock::getStockByOperation('clearance', $period);
+        $sales = Stock::getStockByOperation('clearance', $period);
         $salesCount = $sales->count();
-        $salesSum = $sales->sum('price');
-        return view('admin.home', compact('sales', 'salesCount', 'salesSum', 'period'));
+        $salesSum = 0;
+        foreach ($sales as $sale) {
+            if ($sale->operation_type == 'bulk') {
+                $salesSum += $sale->product->wholesale_price - $sale->product->purchace_price;
+            } else {
+                $salesSum += $sale->price;
+            }
+        }
+        $period = 'Daily';
+        $products = Product::with('unitPerPack')->get();
+        $totalProfit = Product::getTotalProfit($products);
+
+        return view('admin.home', [
+            'period' => $period,
+            'sales' => $sales,
+            'salesCount' => $salesCount,
+            'salesSum' => $salesSum,
+            'period' => $period,
+            'products' => $products,
+            'totalProfit' => $totalProfit,
+        ]);
     }
 
     public function profile(): View
@@ -53,10 +76,10 @@ class AdminHomeController extends Controller
 
     public function updateProfile(AdminProfilRequest $request, User $user): RedirectResponse
     {
-        
-        
+
+
         if ($request->hasFile('picture')) {
-            $a = $request->file('picture')->store('images/users', 'public');    
+            $a = $request->file('picture')->store('images/users', 'public');
         }
         $user->update($request->validated());
 
