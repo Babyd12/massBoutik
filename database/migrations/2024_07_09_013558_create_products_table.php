@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('purchace_price');
             $table->float('selling_price');
             $table->float('wholesale_price');
+            $table->float('wholesale_price');
             $table->boolean('state');
             $table->foreignIdFor(UnitPerPack::class)->constrained();
             $table->timestamps();

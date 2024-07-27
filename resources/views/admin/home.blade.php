@@ -344,6 +344,28 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xl-6 col-md-12">
+                    <div class="card overflow-hidden">
+                        <div class="card-content">
+                            <div class="card-body clearfix">
+                                <div class="d-flex align-items-end">
+                                    <div class="flex-grow-1">
+                                        <h4>{{ __('messages.Total net profit per unit sale') }}
+                                        </h4>
+                                    </div>
+                                    <div class="align-self-end me-3">
+                                        {{-- <i class="bi bi-bar-chart text-primary fs-1"></i> --}}
+                                        <i class="bi bi-building-fill-check fs-1"></i>
+                                      
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-end" style="margin-right:5%">                                                       
+                                    <h1 class="ml-12">{{ $totalCost }} {{ App\Enums\CodeDevise::FCFA }} </h1>               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
               
             </div>
         </section>

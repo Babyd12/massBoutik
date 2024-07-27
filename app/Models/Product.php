@@ -57,6 +57,27 @@ class Product extends Model
         return self::money_format($totalProfit);
     }
 
+    public static function getNetProfit($products)
+    {
+        $totalProfit = 0;
+  
+        foreach ($products as $product) {
+            $totalQuantity = 0; 
+            foreach($product->stocks as $stock){
+                if($stock->quantity && $stock->operation == 'storage'){
+                    $totalQuantity += $stock->quantity;
+                }else{
+                    break;
+                }
+            }
+            //convert string to int
+            $sellingPrice = floatval($product->selling_price);
+            $totalCost = floatval($product->purchace_price);
+            $totalProfit += $sellingPrice * $totalQuantity;
+        }
+        return self::money_format($totalProfit - $totalCost);
+    }
+
     public static function money_format($format)
     {
         return number_format($format, 0, '.', ',');

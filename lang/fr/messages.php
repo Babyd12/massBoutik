@@ -176,6 +176,7 @@ return [
     'Finance' => 'Finance',
     'Forecast' => 'Prévision',
     'Total Profit Expected for All Products' => 'Bénéfice total attendu pour tous les produits',
+    'Total net profit per unit sale' => 'Bénéfice net total par vente unitaire',
 
 
     // error message 
