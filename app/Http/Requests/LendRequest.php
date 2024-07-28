@@ -22,9 +22,7 @@ class LendRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'quantity' => 'required|integer',
-            'operation' => 'required|string',
-            'operation_type' => 'required|string',
+            'advance' => 'required|numeric',
 			'date' => 'nullable|date',
 			'state' => 'required|boolean',
 			'user_id' => 'required|integer',

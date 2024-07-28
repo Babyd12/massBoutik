@@ -15,7 +15,7 @@
                         <option value=""> {{__('messages.Select a product')}} </option>
                         @foreach ($products as $product)
                             <option value="{{ $product->id }}" data-price="{{ $product->purshacePrice }}" data-sellingprice="{{ $product->sellingPrice }}"
-                                @selected(old('product_id', $lend->product_id) == $product->id)>
+                                @selected(old('product_id',  $lend->productLends->first()->product_id) == $product->id)> 
                                 {{ $product->name }}
                             </option>
                         @endforeach
@@ -36,7 +36,7 @@
                         <option value=""> {{__('messages.Select a user')}} </option>
                         @foreach ($users as $user)
                             <option value="{{ $user->id }}" data-name="{{ $user->full_name }}" 
-                                @selected(old('user_id', $lend->user_id) == $user->id)>
+                                @selected( old('user_id', $lend->productLends->first()->user_id) == $user->id) >
                                 {{ $user->full_name }}
                             </option>
                         @endforeach
@@ -47,45 +47,17 @@
         </div>
 
         <div class="form-group mb-2 mb20">
-            <label for="operation" class="form-label">{{ __('messages.Are you making a sale or purchase?') }}</label>
-            <select name="operation" id="operation" class="form-control @error('operation') is-invalid @enderror">
-                @foreach ($enumOperations as $operation)
-                    <option value="{{ $operation }}" @selected(old('operation', $lend->operation) == $operation)>
-                        {{ __('messages.' . $operation->value) }}
-                    </option>
-                @endforeach
-            </select>
-            {!! $errors->first('operation', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
-        <div class="form-group mb-2 mb20" aria-label="Basic radio toggle button group">
-
-            <input type="radio" class="btn-check @error('operation_type') is-invalid @enderror"
-                name="operation_type" id="operation_type_false" value="bulk"
-                {{ old('operation_type', $lend?->operation_type) == 'Bulk' ? 'checked' : '' }}>
-            <label class="btn btn-outline-primary" for="operation_type_false">{{ __('messages.Bulk') }}</label>
-
-            <label for="operation_type" class="form-check-label ml-2 mr-2" >{{ __('messages.Or') }}</label>
-
-            <input type="radio" class="btn-check @error('operation_type') is-invalid @enderror" 
-                name="operation_type" id="operation_type_true" value="in_detail"
-                @if (Route::is('lends.create'))
-                    {{ old('operation_type', $lend?->operation_type) == ''  ? 'checked' : 'checked' }}>        
-                 @else
-                    {{ old('operation_type', $lend?->operation_type) == 'in_detail' ? 'checked' : '' }}>
-                @endif
-                <label class="btn btn-outline-primary" for="operation_type_true">{{ __('messages.In detail') }}</label>
-
-            {!! $errors->first(
-                'operation_type',
-                '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
-            ) !!}
-        </div>
-
-        <div class="form-group mb-2 mb20">
             <label for="quantity" class="form-label">{{ __('messages.Quantity') }}</label>
             <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity', $lend?->quantity) }}" id="quantity" placeholder="Quantity">
             {!! $errors->first('quantity', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+        
+        <div class="form-group mb-2 mb20">
+            <label for="advance" class="form-label">{{ __('messages.advance') }}</label>
+            <input type="text" name="advance" class="form-control @error('advance') is-invalid @enderror" value="{{ old('advance', $lend?->advance) }}" id="advance" placeholder="advance">
+            {!! $errors->first('advance', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+
 
         <div class="form-group mb-2 mb20" aria-label="Basic radio toggle button group">
             <label for="state" class="form-check-label">{{ __('messages.State') }}</label><br>
@@ -112,61 +84,60 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    function setupDropdown(selectId, searchId, hiddenId, dropdownId, filterId, listId) {
-        const selectElem = document.getElementById(selectId);
-        const searchElem = document.getElementById(searchId);
-        const hiddenElem = document.getElementById(hiddenId);
-        const dropdownElem = document.getElementById(dropdownId);
-        const filterElem = document.getElementById(filterId);
-        const listElem = document.getElementById(listId);
-
-        // Initial update of the search field
-        const selectedOption = listElem.options[listElem.selectedIndex];
-        if (selectedOption && selectedOption.value !== "") {
-            searchElem.value = selectedOption.text;
-            hiddenElem.value = selectedOption.value;
-        }
-
-        // Toggle dropdown
-        searchElem.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent click propagation to avoid immediate closure of the dropdown
-            dropdownElem.style.display = dropdownElem.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Filter items
-        filterElem.addEventListener('keyup', function() {
-            const filter = filterElem.value.toLowerCase();
-            for (let i = 0; i < listElem.options.length; i++) {
-                const option = listElem.options[i];
-                const txtValue = option.textContent || option.innerText;
-                option.style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
-            }
-        });
-
-        // Select item
-        listElem.addEventListener('change', function() {
-            const selectedOption = listElem.options[listElem.selectedIndex];
+        function setupDropdown(selectId, searchId, hiddenId, dropdownId, filterId, listId) {
+            const selectElem = document.getElementById(selectId);
+            const searchElem = document.getElementById(searchId);
+            const hiddenElem = document.getElementById(hiddenId);
+            const dropdownElem = document.getElementById(dropdownId);
+            const filterElem = document.getElementById(filterId);
+            const listElem = document.getElementById(listId);
+    
+            // Initial update of the search field
+            const selectedOption = listElem.querySelector(`option[value="${hiddenElem.value}"]`);
             if (selectedOption) {
                 searchElem.value = selectedOption.text;
-                hiddenElem.value = selectedOption.value;
-                dropdownElem.style.display = 'none'; // Hide the dropdown after selection
             }
-        });
-
-        // Hide dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!selectElem.contains(event.target)) {
-                dropdownElem.style.display = 'none';
-            }
-        });
-    }
-
-    // Initialize dropdowns
-    setupDropdown('item-select', 'item-search', 'item-hidden', 'item-dropdown', 'item-filter', 'item-list');
-    setupDropdown('user-select', 'user-search', 'user-hidden', 'user-dropdown', 'user-filter', 'user-list');
-});
-
-</script>
+    
+            // Toggle dropdown
+            searchElem.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent click propagation to avoid immediate closure of the dropdown
+                dropdownElem.style.display = dropdownElem.style.display === 'block' ? 'none' : 'block';
+            });
+    
+            // Filter items
+            filterElem.addEventListener('keyup', function() {
+                const filter = filterElem.value.toLowerCase();
+                for (let i = 0; i < listElem.options.length; i++) {
+                    const option = listElem.options[i];
+                    const txtValue = option.textContent || option.innerText;
+                    option.style.display = txtValue.toLowerCase().indexOf(filter) > -1 ? '' : 'none';
+                }
+            });
+    
+            // Select item
+            listElem.addEventListener('change', function() {
+                const selectedOption = listElem.options[listElem.selectedIndex];
+                if (selectedOption) {
+                    searchElem.value = selectedOption.text;
+                    hiddenElem.value = selectedOption.value;
+                    dropdownElem.style.display = 'none'; // Hide the dropdown after selection
+                }
+            });
+    
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!selectElem.contains(event.target)) {
+                    dropdownElem.style.display = 'none';
+                }
+            });
+        }
+    
+        // Initialize dropdowns
+        setupDropdown('item-select', 'item-search', 'item-hidden', 'item-dropdown', 'item-filter', 'item-list');
+        setupDropdown('user-select', 'user-search', 'user-hidden', 'user-dropdown', 'user-filter', 'user-list');
+    });
+    </script>
+    
 
 <style>
     .custom-select {

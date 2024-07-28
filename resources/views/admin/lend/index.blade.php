@@ -40,6 +40,7 @@
                                         <th>{{__('messages.Quantity')}}</th>
                                         <th>{{__('messages.Product')}}</th>
                                         <th>{{__('messages.State')}}</th>
+                                        <th>{{__('messages.Advance')}}</th>
                                         <th>{{__('messages.Date of lend')}}</th>
 
                                         <th></th>
@@ -47,12 +48,14 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($productLends as $productLend)
+                            
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->lend->quantity }}</td>
                                             <td>{{ $productLend->product->name }}</td>
                                             <td>{{ $productLend->lend->state ? 'Payé' : 'Impayé' }}</td>
+                                            <td>{{ $productLend->lend->advance }}</td>
                                             <td>{{ $productLend->created_at }}</td>
                                             <td>
                                                 <form action="{{ route('lends.destroy', $productLend->id) }}"method="POST">

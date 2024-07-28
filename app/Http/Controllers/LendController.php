@@ -25,7 +25,9 @@ class LendController extends Controller
     public function index(Request $request): View
     {
         $productLends = ProductLend::with('user', 'product', 'lend')->paginate(10);
-        // dd($lends);
+        // foreach($productLends as $prod){
+        //     dd($prod->lend);
+        // }
         return view('admin.lend.index', compact('productLends'))
             ->with('i', ($request->input('page', 1) - 1) * $productLends->perPage());
     }
@@ -57,7 +59,8 @@ class LendController extends Controller
 
             $lend = Lend::create([
                 'quantity' => $data['quantity'],
-                'state' => $data['state']
+                'state' => $data['state'],
+                'advance' => $data['advance'],
             ]);
             
             ProductLend::create([
@@ -82,14 +85,14 @@ class LendController extends Controller
                 }
             }
             // dd($data);
-            Stock::create([
-                // 'quantity', 'operation', 'operation_type', 'price', 'product_id'
-                'quantity' => $data['quantity'],
-                'operation' => $data['operation'],
-                'operation_type' => $data['operation_type'],
-                'price' => $data['price'],
-                'product_id' => $product->id,
-            ]);
+            // Stock::create([
+            //     // 'quantity', 'operation', 'operation_type', 'price', 'product_id'
+            //     'quantity' => $data['quantity'],
+            //     'operation' => $data['operation'],
+            //     'operation_type' => $data['operation_type'],
+            //     'price' => $data['price'],
+            //     'product_id' => $product->id,
+            // ]);
          
             DB::commit();
             return Redirect::route('lends.index')
@@ -134,6 +137,7 @@ class LendController extends Controller
      */
     public function update(LendRequest $request, Lend $lend): RedirectResponse
     {
+        // dd($request->validated());
         $lend->update($request->validated());
 
         return Redirect::route('lends.index')

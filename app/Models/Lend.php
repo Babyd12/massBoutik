@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $state
  * @property $service_id
  * @property $user_id
+ * @property $advance
  * @property $created_at
  * @property $updated_at
  *
@@ -32,7 +33,7 @@ class Lend extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['quantity', 'date', 'state', 'service_id'];
+    protected $fillable = ['quantity', 'advance', 'date', 'state', 'service_id'];
 
 
     /**
