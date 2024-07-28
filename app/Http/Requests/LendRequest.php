@@ -23,6 +23,8 @@ class LendRequest extends FormRequest
     {
         return [
 			'quantity' => 'required|integer',
+            'operation' => 'required|string',
+            'operation_type' => 'required|string',
 			'date' => 'nullable|date',
 			'state' => 'required|boolean',
 			'user_id' => 'required|integer',

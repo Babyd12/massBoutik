@@ -55,9 +55,11 @@ class AdminHomeController extends Controller
                 $salesSum += $sale->price;
             }
         }
-        $period = 'Daily';
+     
         $products = Product::with('unitPerPack')->get();
         $totalProfit = Product::getTotalProfit($products);
+        $totalCost = Product::getNetProfit($products);
+
 
         return view('admin.home', [
             'period' => $period,
@@ -67,6 +69,7 @@ class AdminHomeController extends Controller
             'period' => $period,
             'products' => $products,
             'totalProfit' => $totalProfit,
+            'totalCost' => $totalCost,
         ]);
     }
 

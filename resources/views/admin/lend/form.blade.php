@@ -47,6 +47,41 @@
         </div>
 
         <div class="form-group mb-2 mb20">
+            <label for="operation" class="form-label">{{ __('messages.Are you making a sale or purchase?') }}</label>
+            <select name="operation" id="operation" class="form-control @error('operation') is-invalid @enderror">
+                @foreach ($enumOperations as $operation)
+                    <option value="{{ $operation }}" @selected(old('operation', $lend->operation) == $operation)>
+                        {{ __('messages.' . $operation->value) }}
+                    </option>
+                @endforeach
+            </select>
+            {!! $errors->first('operation', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        </div>
+        <div class="form-group mb-2 mb20" aria-label="Basic radio toggle button group">
+
+            <input type="radio" class="btn-check @error('operation_type') is-invalid @enderror"
+                name="operation_type" id="operation_type_false" value="bulk"
+                {{ old('operation_type', $lend?->operation_type) == 'Bulk' ? 'checked' : '' }}>
+            <label class="btn btn-outline-primary" for="operation_type_false">{{ __('messages.Bulk') }}</label>
+
+            <label for="operation_type" class="form-check-label ml-2 mr-2" >{{ __('messages.Or') }}</label>
+
+            <input type="radio" class="btn-check @error('operation_type') is-invalid @enderror" 
+                name="operation_type" id="operation_type_true" value="in_detail"
+                @if (Route::is('lends.create'))
+                    {{ old('operation_type', $lend?->operation_type) == ''  ? 'checked' : 'checked' }}>        
+                 @else
+                    {{ old('operation_type', $lend?->operation_type) == 'in_detail' ? 'checked' : '' }}>
+                @endif
+                <label class="btn btn-outline-primary" for="operation_type_true">{{ __('messages.In detail') }}</label>
+
+            {!! $errors->first(
+                'operation_type',
+                '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+            ) !!}
+        </div>
+
+        <div class="form-group mb-2 mb20">
             <label for="quantity" class="form-label">{{ __('messages.Quantity') }}</label>
             <input type="text" name="quantity" class="form-control @error('quantity') is-invalid @enderror" value="{{ old('quantity', $lend?->quantity) }}" id="quantity" placeholder="Quantity">
             {!! $errors->first('quantity', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}

@@ -52,7 +52,7 @@
                                             <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->lend->quantity }}</td>
                                             <td>{{ $productLend->product->name }}</td>
-                                            <td>{{ $productLend->lend->state ? 'Impayé' : 'Payé' }}</td>
+                                            <td>{{ $productLend->lend->state ? 'Payé' : 'Impayé' }}</td>
                                             <td>{{ $productLend->created_at }}</td>
                                             <td>
                                                 <form action="{{ route('lends.destroy', $productLend->id) }}"method="POST">

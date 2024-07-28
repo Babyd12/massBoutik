@@ -108,11 +108,10 @@
                                             
                                         </li>
                                         <li class="w-100">
-                                            <a href="{{ route('stocks.create') }}" class="nav-link px-0">
+                                            <a href="{{ route('lends.create') }}" class="nav-link px-0">
                                                 <i class="bi bi-bag-dash-fill"></i>
                                                 <span class="d-none d-sm-inline">{{ __('messages.Add lend') }}</span>
                                             </a>
-                                            
                                         </li>
                                     </ul>
                                 </li>
@@ -133,8 +132,6 @@
                                         </li>
                                     </ul>
                                 </li>
-
-
 
                             </ul>
                             <hr>

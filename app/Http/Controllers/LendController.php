@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Lend;
 use App\Models\User;
+use App\Models\Stock;
 use App\Models\Product;
 use App\Models\Service;
+use App\Enums\Operation;
 use Illuminate\View\View;
 use App\Models\ProductLend;
 use Illuminate\Http\Request;
@@ -38,6 +40,7 @@ class LendController extends Controller
             'products' => Product::all(),
             'users' => User::all(),
            'services' => Service::all(),   
+           'enumOperations' => Operation::cases(),
         ]);
     }
     
@@ -50,6 +53,8 @@ class LendController extends Controller
         
         DB::BeginTransaction();
         try{
+            $product = Product::findOrFail($data['product_id']);
+
             $lend = Lend::create([
                 'quantity' => $data['quantity'],
                 'state' => $data['state']
@@ -59,6 +64,31 @@ class LendController extends Controller
                 'user_id' => $data['user_id'],
                 'product_id' => $data['product_id'],
                 'lend_id' => $lend->id,
+            ]);
+
+
+            if($data['operation'] == Operation::CLEARANCE->value){   
+
+                $currentStock = Stock::getCurrentStockByProductId($product->id);
+                if($data['quantity'] > $currentStock ){
+                    return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+                }   
+                $data['quantity'] = -abs($data['quantity']);
+    
+                if($data['operation_type'] == 'bulk'){
+                    $data['price'] = $product->wholesale_price;
+                } else{
+                    $data['price'] = $product->selling_price;
+                }
+            }
+            // dd($data);
+            Stock::create([
+                // 'quantity', 'operation', 'operation_type', 'price', 'product_id'
+                'quantity' => $data['quantity'],
+                'operation' => $data['operation'],
+                'operation_type' => $data['operation_type'],
+                'price' => $data['price'],
+                'product_id' => $product->id,
             ]);
          
             DB::commit();
@@ -95,6 +125,7 @@ class LendController extends Controller
             'products' => Product::all(),
             'users' => User::all(),
            'services' => Service::all(),   
+           'enumOperations' => Operation::cases(),
         ]);
     }
 
