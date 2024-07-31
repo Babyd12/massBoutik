@@ -18,7 +18,7 @@
                 value="{{ old('nick_name', $user?->nick_name) }}" id="nick_name" placeholder="Nick Name">
             {!! $errors->first('nick_name', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <input type="hidden" name="role" value="customer">
+
         <div class="row ">
 
             <div class="form-group mb-2 mb20 col-auto" style="width: 10%;">
@@ -54,7 +54,7 @@
         </div>
         
         <div class="form-group mb-2 mb20">
-            <input type="hidden" name="role" class="form-control @error('role') is-invalid @enderror" value="admin" id="role" placeholder="Role">
+            <input type="hidden" name="role" class="form-control @error('role') is-invalid @enderror" value="customer" id="role" placeholder="Role">
         </div>
       
 
