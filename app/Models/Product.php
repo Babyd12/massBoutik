@@ -62,20 +62,22 @@ class Product extends Model
         $totalProfit = 0;
         $totalCost = 0;
         foreach ($products as $product) {
+            // dd($product->purchace_price);
             $totalQuantity = 0; 
             foreach($product->stocks as $stock){
                 if($stock->quantity && $stock->operation == 'storage'){
                     $totalQuantity += $stock->quantity;
+                    $totalCost = floatval($product->purchace_price);
+                    $sellingPrice = floatval($product->selling_price);
                 }else{
                     break;
                 }
+
             }
             //convert string to int
-            $sellingPrice = floatval($product->selling_price);
-            $totalCost = floatval($product->purchace_price);
             $totalProfit += $sellingPrice * $totalQuantity;
         }
-        //if total profil is empty that's mean products haven't stock
+        //if total profil is empty that's mean products haven't stock it wil return 0
         if(empty($totalProfit)){
             return $totalProfit;
         }else {
