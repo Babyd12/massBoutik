@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Stock
@@ -29,15 +30,20 @@ class Stock extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['quantity', 'operation', 'operation_type', 'price', 'product_id'];
+    protected $fillable = ['quantity', 'operation', 'operation_type', 'price', 'product_id', 'lend_id'];
 
-
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function product()
     {
         return $this->belongsTo(\App\Models\Product::class, 'product_id', 'id');
+    }
+
+    public function lend(): BelongsTo
+    {
+        return $this->belongsTo(Lend::class);
     }
 
     public static function getCurrentStockByProductId($product_id)

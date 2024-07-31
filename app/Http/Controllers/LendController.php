@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Database\Events\TransactionBeginning;
+use Illuminate\Support\Facades\Http;
 
 class LendController extends Controller
 {
@@ -41,66 +42,40 @@ class LendController extends Controller
             'lend' => new Lend(),
             'products' => Product::all(),
             'users' => User::all(),
-           'services' => Service::all(),   
-           'enumOperations' => Operation::cases(),
+            'services' => Service::all(),
+            'enumOperations' => Operation::cases(),
         ]);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(LendRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        
+        // dd($data);
         DB::BeginTransaction();
-        try{
-            $product = Product::findOrFail($data['product_id']);
+        try {
+            $product =  Product::findOrFail($data['product_id']);
 
-            $lend = Lend::create([
-                'quantity' => $data['quantity'],
-                'state' => $data['state'],
-                'advance' => $data['advance'],
-            ]);
-            
+            $currentStock = Stock::getCurrentStockByProductId($product->id);
+            if ($data['quantity'] > $currentStock) {
+                return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+            }
+            $lend  = lend::create($data);
+            // dd($lend);
             ProductLend::create([
                 'user_id' => $data['user_id'],
                 'product_id' => $data['product_id'],
                 'lend_id' => $lend->id,
             ]);
 
-
-            if($data['operation'] == Operation::CLEARANCE->value){   
-
-                $currentStock = Stock::getCurrentStockByProductId($product->id);
-                if($data['quantity'] > $currentStock ){
-                    return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
-                }   
-                $data['quantity'] = -abs($data['quantity']);
-    
-                if($data['operation_type'] == 'bulk'){
-                    $data['price'] = $product->wholesale_price;
-                } else{
-                    $data['price'] = $product->selling_price;
-                }
-            }
-            // dd($data);
-            // Stock::create([
-            //     // 'quantity', 'operation', 'operation_type', 'price', 'product_id'
-            //     'quantity' => $data['quantity'],
-            //     'operation' => $data['operation'],
-            //     'operation_type' => $data['operation_type'],
-            //     'price' => $data['price'],
-            //     'product_id' => $product->id,
-            // ]);
-         
             DB::commit();
             return Redirect::route('lends.index')
-            ->with('success', 'Lend created successfully.');
-
-        } catch(\Exception $e){
+                ->with('success', 'Lend created successfully.');
+        } catch (\Exception $e) {
             DB::rollBack();
-           
+            dd($e->getMessage());
             return redirect()->route('lends.create')
                 ->with('error', $e->getMessage());
         }
@@ -127,8 +102,8 @@ class LendController extends Controller
             'lend' => $lend,
             'products' => Product::all(),
             'users' => User::all(),
-           'services' => Service::all(),   
-           'enumOperations' => Operation::cases(),
+            'services' => Service::all(),
+            'enumOperations' => Operation::cases(),
         ]);
     }
 
@@ -137,15 +112,70 @@ class LendController extends Controller
      */
     public function update(LendRequest $request, Lend $lend): RedirectResponse
     {
-        // dd($request->validated());
-        $lend->update($request->validated());
+        // add here logique for add in stock if state is paid 
 
-        return Redirect::route('lends.index')
-            ->with('success', 'Lend updated successfully');
+        $data = $request->validated();
+        // dd($lend->id);
+        $product = Product::findOrFail($data['product_id']);
+
+
+        $currentStock = Stock::getCurrentStockByProductId($product->id);
+        if ($data['quantity'] > $currentStock) {
+            return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
+        }
+        $data['quantity'] = -abs($data['quantity']);
+
+        if ($data['operation_type'] == 'bulk') {
+            $data['price'] = $product->wholesale_price;
+        } else {
+            $data['price'] = $product->selling_price;
+        }
+
+        if ($request->payment_status == '1') { // 1 is paid
+            DB::BeginTransaction();
+
+            try {
+                Stock::create([
+                    'quantity' => $data['quantity'],
+                    'operation' => 'clearance',
+                    'operation_type' => $data['operation_type'],
+                    'price' => $data['price'],
+                    'lend_id' => $lend->id,
+                    'product_id' => $product->id,
+                ]);
+                $lend->update($request->validated());
+
+                DB::commit();
+                return Redirect::route('lends.index')
+                    ->with('success', 'Lend updated successfully');
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                return Redirect::route('lends.edit', $lend->id)
+                    ->with('error', $e->getMessage());
+            }
+            
+        } else if ($request->payment_status == '0') {
+            DB::beginTransaction();
+            try {
+                $stock = Stock::where('lend_id', $lend->id)->first();
+                if ($stock) {
+                    $stock->delete();
+                }
+                $lend->update($request->validated());
+                DB::commit();
+                return Redirect::route('lends.index')
+                    ->with('success', 'Lend updated successfully');
+            } catch (\Exception $e) {
+
+                return Redirect::route('lends.edit', $lend->id)
+                ->with('success', $e->getMessage());
+            }
+        }
     }
 
     public function destroy($id): RedirectResponse
-    {   
+    {
         ProductLend::findOrFail($id)->delete();
 
         return Redirect::route('lends.index')

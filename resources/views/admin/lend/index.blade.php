@@ -3,7 +3,7 @@
 @section('template_title')
     Lends
 @endsection
-
+{{-- quand jenregistre une vente qui fu un pret je dois le savoir car si le user remet letat du pret a impayer faudra retirer lenregistrement fait dans stock --}}
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -54,7 +54,7 @@
                                             <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->lend->quantity }}</td>
                                             <td>{{ $productLend->product->name }}</td>
-                                            <td>{{ $productLend->lend->state ? 'Payé' : 'Impayé' }}</td>
+                                            <td>{{ $productLend->lend->payment_status ? 'Payé' : 'Impayé' }}</td>
                                             <td>{{ $productLend->lend->advance }}</td>
                                             <td>{{ $productLend->created_at }}</td>
                                             <td>

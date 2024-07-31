@@ -24,9 +24,11 @@ class LendRequest extends FormRequest
         return [
             'advance' => 'required|numeric',
 			'date' => 'nullable|date',
-			'state' => 'required|boolean',
+			'payment_status' => 'required|boolean',
 			'user_id' => 'required|integer',
             'product_id' => 'required|integer',
+            'operation_type' => 'required|string|in:bulk,in_detail',
+            'quantity' => 'required|integer|min:0',
         ];
     }
 }

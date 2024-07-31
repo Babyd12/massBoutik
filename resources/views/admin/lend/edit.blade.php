@@ -11,7 +11,7 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('messages.Update') }} Lend</span>
+                        <span class="card-title">{{ __('messages.Update') }}  {{__('messages.Lend')}} </span>
                     </div>
                     <div class="card-body bg-white">
                         <form method="POST" action="{{ route('lends.update', $lend->id) }}"  role="form" enctype="multipart/form-data">

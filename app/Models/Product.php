@@ -60,7 +60,7 @@ class Product extends Model
     public static function getNetProfit($products)
     {
         $totalProfit = 0;
-  
+        $totalCost = 0;
         foreach ($products as $product) {
             $totalQuantity = 0; 
             foreach($product->stocks as $stock){
@@ -75,7 +75,14 @@ class Product extends Model
             $totalCost = floatval($product->purchace_price);
             $totalProfit += $sellingPrice * $totalQuantity;
         }
-        return self::money_format($totalProfit - $totalCost);
+        //if total profil is empty that's mean products haven't stock
+        if(empty($totalProfit)){
+            return $totalProfit;
+        }else {
+
+            return self::money_format($totalProfit - $totalCost);
+        }
+
     }
 
     public static function money_format($format)

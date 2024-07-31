@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Lend
@@ -33,7 +34,7 @@ class Lend extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['quantity', 'advance', 'date', 'state', 'service_id'];
+    protected $fillable = ['quantity', 'advance', 'operation_type', 'date', 'payment_status', 'service_id'];
 
 
     /**
@@ -54,6 +55,11 @@ class Lend extends Model
     public function productLends()
     {
         return $this->hasMany(\App\Models\ProductLend::class, 'lend_id', 'id' );
+    }
+
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(\App\Models\Stock::class, 'stock_id', 'id' );
     }
     
 }

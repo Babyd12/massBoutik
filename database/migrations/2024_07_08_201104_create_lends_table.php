@@ -17,7 +17,8 @@ return new class extends Migration
         Schema::create('lends', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->boolean('state')->default(true);
+            $table->boolean('payment_status')->default(false);
+            $table->enum('operation_type', ['bulk', 'in_detail']);
             $table->foreignIdFor(Service::class)->nullable()->constrained()->cascadeOnDelete();    
             $table->timestamps();
         });

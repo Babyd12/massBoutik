@@ -147,7 +147,7 @@ return [
     'Select a user' => 'Selectionner un utilisateur',
     'Paid' => 'Payé',
     'Outstanding payment' => 'impayé',
-
+    'Advance' => 'Avance',
     
 
 
