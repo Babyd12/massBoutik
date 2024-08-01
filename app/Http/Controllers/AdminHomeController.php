@@ -16,7 +16,7 @@ class AdminHomeController extends Controller
     public function index(): View
     {
         $sales = Stock::getStockByOperation('clearance');
-        $salesCount = $sales->count();
+        $salesCount = abs($sales->sum('quantity'));
         $salesSum = 0;
         foreach ($sales as $sale) {
             if ($sale->operation_type == 'bulk') {
@@ -26,7 +26,7 @@ class AdminHomeController extends Controller
             }
         }
         $period = 'Daily';
-        $products = Product::with('unitPerPack')->get();
+        $products = Product::with('stocks')->get();
         $totalProfit = Product::getTotalProfit($products); // total profil by unit sell 
         $totalCost = Product::getNetProfit($products);
         

@@ -37,17 +37,16 @@ class Product extends Model
      */
     protected $fillable = ['name',  'wholesale_price' , 'purchace_price',  'selling_price','state', 'unit_per_pack_id'];
     
-
+    
     public static function getTotalProfit($products)
     {
         $totalProfit = 0;
         foreach ($products as $product) {
             $totalQuantity = 0; 
-            foreach($product->stocks as $stock){
+
+            foreach($product->stocks as $stock){    
                 if($stock->quantity && $stock->operation == 'storage'){
-                    $totalQuantity += $stock->quantity;
-                }else{
-                    break;
+                    $totalQuantity += (int)$stock->quantity;
                 }
             }
             //convert string to int
@@ -56,33 +55,33 @@ class Product extends Model
         }
         return self::money_format($totalProfit);
     }
-
+    
     public static function getNetProfit($products)
     {
         $totalProfit = 0;
-        $totalCost = 0;
+        $totalPurchasePrice = 0;
         foreach ($products as $product) {
             // dd($product->purchace_price);
             $totalQuantity = 0; 
             foreach($product->stocks as $stock){
                 if($stock->quantity && $stock->operation == 'storage'){
-                    $totalQuantity += $stock->quantity;
-                    $totalCost = floatval($product->purchace_price);
-                    $sellingPrice = floatval($product->selling_price);
-                }else{
-                    break;
+                    $totalQuantity += (int)$stock->quantity;   
+                    $totalPurchasePrice += floatval($product->purchace_price);
                 }
-
             }
             //convert string to int
+            $sellingPrice = floatval($product->selling_price);
             $totalProfit += $sellingPrice * $totalQuantity;
         }
+        
+        // dd($totalPurchasePrice, $totalProfit);
+        // dd($totalPurchasePrice);
         //if total profil is empty that's mean products haven't stock it wil return 0
         if(empty($totalProfit)){
             return $totalProfit;
         }else {
 
-            return self::money_format($totalProfit - $totalCost);
+            return self::money_format($totalProfit - $totalPurchasePrice);
         }
 
     }

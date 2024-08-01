@@ -19,7 +19,6 @@ return new class extends Migration
             $table->enum('operation_type', ['bulk', 'in_detail']);
             $table->float('price');
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
-            // $table->foreignIdFor(Lend::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

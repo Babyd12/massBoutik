@@ -66,13 +66,13 @@ class StockController extends Controller
             if($data['quantity'] > $currentStock ){
                 return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
             }   
-            $data['quantity'] = -abs($data['quantity']);
 
             if($data['operation_type'] == 'bulk'){
                 $data['price'] = $product->wholesale_price;
             } else{
-                $data['price'] = $product->selling_price;
+                $data['price'] = $product->selling_price * $data['quantity'];
             }
+            $data['quantity'] = -abs($data['quantity']);
         }
         Stock::create($data);
 
