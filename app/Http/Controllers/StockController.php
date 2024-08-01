@@ -19,6 +19,7 @@ class StockController extends Controller
     public function index(Request $request): View
     {
         $stocks = Stock::paginate();
+        
 
         return view('admin.stock.index', compact('stocks'))
             ->with('i', ($request->input('page', 1) - 1) * $stocks->perPage());

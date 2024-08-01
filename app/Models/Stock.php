@@ -50,6 +50,7 @@ class Stock extends Model
     {
         return self::where('product_id', $product_id)->sum('quantity');
     }
+    
 
     public static function getStockByOperation($operation, $period = null)
     {

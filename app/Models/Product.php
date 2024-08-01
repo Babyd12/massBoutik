@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory;
-    
+
     protected $perPage = 20;
 
     /**
@@ -35,17 +35,17 @@ class Product extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name',  'wholesale_price' , 'purchace_price',  'selling_price','state', 'unit_per_pack_id'];
-    
-    
+    protected $fillable = ['name',  'wholesale_price', 'purchace_price',  'selling_price', 'state', 'unit_per_pack_id'];
+
+
     public static function getTotalProfit($products)
     {
         $totalProfit = 0;
         foreach ($products as $product) {
-            $totalQuantity = 0; 
+            $totalQuantity = 0;
 
-            foreach($product->stocks as $stock){    
-                if($stock->quantity && $stock->operation == 'storage'){
+            foreach ($product->stocks as $stock) {
+                if ($stock->quantity && $stock->operation == 'storage') {
                     $totalQuantity += (int)$stock->quantity;
                 }
             }
@@ -55,17 +55,17 @@ class Product extends Model
         }
         return self::money_format($totalProfit);
     }
-    
+
     public static function getNetProfit($products)
     {
         $totalProfit = 0;
         $totalPurchasePrice = 0;
         foreach ($products as $product) {
             // dd($product->purchace_price);
-            $totalQuantity = 0; 
-            foreach($product->stocks as $stock){
-                if($stock->quantity && $stock->operation == 'storage'){
-                    $totalQuantity += (int)$stock->quantity;   
+            $totalQuantity = 0;
+            foreach ($product->stocks as $stock) {
+                if ($stock->quantity && $stock->operation == 'storage') {
+                    $totalQuantity += (int)$stock->quantity;
                     $totalPurchasePrice += floatval($product->purchace_price);
                 }
             }
@@ -73,18 +73,22 @@ class Product extends Model
             $sellingPrice = floatval($product->selling_price);
             $totalProfit += $sellingPrice * $totalQuantity;
         }
-        
+
         // dd($totalPurchasePrice, $totalProfit);
         // dd($totalPurchasePrice);
         //if total profil is empty that's mean products haven't stock it wil return 0
-        if(empty($totalProfit)){
+        if (empty($totalProfit)) {
             return $totalProfit;
-        }else {
+        } else {
 
             return self::money_format($totalProfit - $totalPurchasePrice);
         }
-
     }
+    public function currentStock()
+    {
+        return $this->stocks()->sum('quantity');
+    }
+
 
     public static function money_format($format)
     {
@@ -93,7 +97,7 @@ class Product extends Model
 
     public function stateFormat()
     {
-        return $this->state == 1? 'Active' : 'Inactive';
+        return $this->state == 1 ? 'Active' : 'Inactive';
     }
 
 
@@ -104,7 +108,7 @@ class Product extends Model
     {
         return $this->belongsTo(\App\Models\UnitPerPack::class, 'unit_per_pack_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -112,7 +116,7 @@ class Product extends Model
     {
         return $this->hasMany(\App\Models\ProductLend::class,  'product_id', 'id',);
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -120,5 +124,4 @@ class Product extends Model
     {
         return $this->hasMany(\App\Models\Stock::class,  'product_id', 'id',);
     }
-    
 }
