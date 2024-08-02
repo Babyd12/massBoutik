@@ -91,7 +91,7 @@
     </div>
 
     {{-- CURRENT STOCKS BY PRODUCTS --}}
-    <div class="container-fluid">
+    <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
@@ -111,7 +111,7 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        <th>{{ __('messages.Name') }}</th>
+                                        <th>{{ __('messages.Product') }}</th>
                                         <th>{{ __('messages.Quantity') }}</th>
                                     </tr>
                                 </thead>
