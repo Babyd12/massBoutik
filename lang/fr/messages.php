@@ -118,6 +118,8 @@ return [
     'in_detail' => 'En détail',
     'Are you making a sale or purchase?' => 'Vous effectuez une vente ou un achat ?',
     'Or' => 'Ou',
+    'Current stock' => 'Stock actuelle',
+    'Buys and sells' => 'Listes des achats et ventes',
 
 
     //user
@@ -147,6 +149,7 @@ return [
     'Select a user' => 'Selectionner un utilisateur',
     'Paid' => 'Payé',
     'Outstanding payment' => 'impayé',
+    'unpaid ' => 'Non payé',
     'Advance' => 'Avance',
     
 
@@ -170,6 +173,7 @@ return [
     'Show buys and sells' => 'Voir les achats et ventes',
     'Add buys or sells' => 'Enregistrer un achat ou une vente',
     'Add lend' => 'Enregistrer un prêt',
+    'Update date' => 'Date de mise à jour',
 
     //home 
     'Expected profit' => 'Bénéfice attendu',

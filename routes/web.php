@@ -35,6 +35,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('lends', LendController::class);
+    Route::put('lends-state/{productLend}', [LendController::class, 'updateState'])->name('lends.state');
+
 
 });
 

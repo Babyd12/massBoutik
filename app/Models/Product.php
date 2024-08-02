@@ -84,7 +84,7 @@ class Product extends Model
             return self::money_format($totalProfit - $totalPurchasePrice);
         }
     }
-    public function currentStock()
+    public function getCurrentStockAttribute()
     {
         return $this->stocks()->sum('quantity');
     }

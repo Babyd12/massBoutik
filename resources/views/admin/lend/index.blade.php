@@ -42,6 +42,7 @@
                                         <th>{{__('messages.State')}}</th>
                                         <th>{{__('messages.Advance')}}</th>
                                         <th>{{__('messages.Date of lend')}}</th>
+                                        <th>{{__('messages.Update date')}}</th>
 
                                         <th></th>
                                     </tr>
@@ -54,9 +55,22 @@
                                             <td>{{ $productLend->user->full_name }}</td>
                                             <td>{{ $productLend->lend->quantity }}</td>
                                             <td>{{ $productLend->product->name }}</td>
-                                            <td>{{ $productLend->lend->payment_status ? 'Payé' : 'Impayé' }}</td>
+                                            <td> 
+                                                <form action="{{ route('lends.state', $productLend->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-sm {{ $productLend->lend->payment_status ? 'btn-success' : 'btn-warning' }}">
+                                                        <i class="bi bi-check-circle' }}"></i>
+
+                                                        <i class="fa {{ $productLend->lend->payment_status ? 'fa-check' : 'fa-times' }}"></i>
+                                                        {{ $productLend->lend->payment_status ? __('messages.Paid') : __('messages.unpaid ') }}
+                                                    </button> 
+                                                </form>
+                                            </td>                                            
                                             <td>{{ $productLend->lend->advance }}</td>
                                             <td>{{ $productLend->created_at }}</td>
+                                            <td>{{ $productLend->updated_at }}</td>
+
                                             <td>
                                                 <form action="{{ route('lends.destroy', $productLend->id) }}"method="POST">
                                                     <a class="btn btn-sm btn-primary"

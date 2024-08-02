@@ -174,6 +174,69 @@ class LendController extends Controller
         }
     }
 
+    public function updateState(ProductLend $productLend)
+    {
+        $lend = Lend::find($productLend->lend_id);
+        $product = Product::find($productLend->product_id);
+        // dd($product);
+
+        // by default state is false so  = 0
+        if ($lend->payment_status == '0') { // is paid and sate is false i will change to true 
+            DB::BeginTransaction();
+
+            $lend->payment_status = true;
+            $lend->save();
+
+            try {
+                Stock::create([
+                    'quantity' => -abs($lend->quantity),
+                    'operation' => 'clearance',
+                    'operation_type' => $lend->operation_type,
+                    'price' => $lend->operation_type == 'bulk' ? $product->wholesale_price : $product->selling_price,
+                    'lend_id' => $productLend->lend_id,
+                    'product_id' => $productLend->product_id,
+                ]);
+            
+                DB::commit();
+                return Redirect::route('lends.index')
+                    ->with('success', 'Lend updated successfully');
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                return Redirect::route('lends.edit', $lend->id)
+                    ->with('error', $e->getMessage());
+            }
+            
+        } else if ($lend->payment_status == '1') { 
+            DB::beginTransaction();
+
+          
+
+            try {
+                $stock = Stock::where('lend_id', $lend->id)->first();
+                if ($stock) {
+                    $stock->delete();
+                }
+
+                $lend->payment_status = false;
+                $lend->save();
+
+                DB::commit();
+
+                return Redirect::route('lends.index')
+                    ->with('success', 'Lend updated successfully');
+            } catch (\Exception $e) {
+
+                return Redirect::route('lends.edit', $lend->id)
+                ->with('success', $e->getMessage());
+            }
+        }
+        
+        return redirect()->route('lends.index')
+            ->with('success', 'Error 007');
+    }
+
+
     public function destroy($id): RedirectResponse
     {
         ProductLend::findOrFail($id)->delete();
