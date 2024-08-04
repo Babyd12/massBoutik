@@ -120,6 +120,11 @@ return [
     'Or' => 'Ou',
     'Current stock' => 'Stock actuelle',
     'Buys and sells' => 'Listes des achats et ventes',
+    'Lisf of sells' => 'Liste des  ventes',
+    'Daily Sales Report' => 'Rapport de ventes quotidiennes',
+    'Make Purchase | Sale' => 'Faire un Achat | Vente',
+    'Export sell as pdf' => 'Exporter les ventes en pdf',
+
 
 
     //user

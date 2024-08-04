@@ -38,6 +38,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('lends-state/{productLend}', [LendController::class, 'updateState'])->name('lends.state');
 
 
+    // Route for pdf view
+    Route::get('pdf-sell', [StockController::class, 'getSellAsPdf'])->name('pdf.sale');
+    
 });
 
 

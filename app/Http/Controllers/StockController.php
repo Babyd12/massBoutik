@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StockRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class StockController extends Controller
 {
@@ -20,11 +21,30 @@ class StockController extends Controller
     {
         $stocks = Stock::paginate();
         $productWithStocks = Product::with('stocks')->get();
-        
+
 
         return view('admin.stock.index', compact('stocks', 'productWithStocks'))
-            ->with('i',  ($request->input('page', 1) - 1) * $stocks->perPage())
-            ->with('j',  ($request->input('page', 1) - 1) * $stocks->perPage());
+            ->with('i', ($request->input('page', 1) - 1) * $stocks->perPage())
+            ->with('j', ($request->input('page', 1) - 1) * $stocks->perPage());
+    }
+
+    public function getSellAsPdf()
+    {
+        $sales = Stock::where('operation', 'clearance')->get();
+        $imgPath =  asset('storage/images/users/default.jpg');
+        $dayBenefit = $sales->sum('price');
+        $data = [
+            'title' => 'Rapport vente',
+            'sales' => $sales,
+            'dayBenefit' => $dayBenefit,
+            'i' => 0,
+            'date' => now(),
+            'imgPath' => $imgPath,
+
+        ];
+        $pdf = Pdf::loadView('pdf.purchase-and-sale', $data);
+        return $pdf->download('rapport-vente'.now(). '.pdf');
+        // return $pdf->stream('document.pdf');
     }
 
     /**
@@ -35,8 +55,8 @@ class StockController extends Controller
         $stock = new Stock();
         $enumOperations = Operation::cases();
         $products = Product::all();
-   
-        
+
+
         return view('admin.stock.create', [
             'stock' => $stock,
             'enumOperations' => $enumOperations,
@@ -46,7 +66,7 @@ class StockController extends Controller
 
     public function createSell(): View
     {
-       return $this->create();
+        return $this->create();
     }
 
     /**
@@ -55,24 +75,24 @@ class StockController extends Controller
 
     public function store(StockRequest $request): RedirectResponse
     {
-        
+
         //check if the product price wasen't change by user cause is readonly, mapped to product
 
         $data = $request->validated();
         // dd($data);
         $product = Product::findOrFail($data['product_id']);
         // user can't clearance a product in the stock if the product in stock not exist or letter than out value
-       
-        if($data['operation'] == Operation::CLEARANCE->value){   
+
+        if ($data['operation'] == Operation::CLEARANCE->value) {
 
             $currentStock = Stock::getCurrentStockByProductId($product->id);
-            if($data['quantity'] > $currentStock ){
+            if ($data['quantity'] > $currentStock) {
                 return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
-            }   
+            }
 
-            if($data['operation_type'] == 'bulk'){
+            if ($data['operation_type'] == 'bulk') {
                 $data['price'] = $product->wholesale_price;
-            } else{
+            } else {
                 $data['price'] = $product->selling_price * $data['quantity'];
             }
             $data['quantity'] = -abs($data['quantity']);
@@ -83,7 +103,8 @@ class StockController extends Controller
             ->with('success', 'Stock created successfully.');
     }
 
-    public function convertNumberToNegatif($number){
+    public function convertNumberToNegatif($number)
+    {
         return -abs($number);
     }
 
@@ -106,7 +127,7 @@ class StockController extends Controller
         $stock = Stock::find($id);
         $products = Product::all();
         $enumOperations = Operation::cases();
-        
+
 
 
         return view('admin.stock.edit', compact('stock', 'products', 'enumOperations'));
@@ -117,19 +138,19 @@ class StockController extends Controller
      */
     public function update(StockRequest $request, Stock $stock): RedirectResponse
     {
-        $data = $request->validated();   
-        if(!empty($data['new_price'])){
+        $data = $request->validated();
+        if (!empty($data['new_price'])) {
             $data['price'] = $data['new_price'];
         }
-        if($data['operation'] == Operation::CLEARANCE->value){      
+        if ($data['operation'] == Operation::CLEARANCE->value) {
             $data['price'] = -abs($data['price']);
         }
 
         $currentStock = Stock::getCurrentStockByProductId($data['product_id']);
-        if($data['quantity'] > $currentStock ){
+        if ($data['quantity'] > $currentStock) {
             return redirect()->back()->with(['error' => 'Quantity must be less or equal to current stock']);
         }
-  
+
         $stock->update($data);
 
         return Redirect::route('stocks.index')
